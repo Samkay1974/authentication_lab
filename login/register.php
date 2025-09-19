@@ -168,16 +168,21 @@
                                 <label for="city" class="form-label">City <i class="fa fa-home"></i></label>
                                 <input type="text" class="form-control animate__animated animate__fadeInUp" id="city" name="city" required>
                             </div>
+                            <div class="mb-3">
+                                        <input class="form-check-input" type="checkbox" id="showPassword" onclick="togglePassword()">
+                                        <label class="form-check-label" for="showPassword">Show Passwords</label>
+                                    </div>
                             <div class="mb-4">
                                 <label class="form-label">User Type</label>
                                 <div class="d-flex justify-content-start">
                                     <div class="form-check me-3 custom-radio">
                                         <input class="form-check-input" type="radio" name="role" id="customer" value="1" checked>
-                                        <label class="form-check-label" for="customer">Customer</label>
+                                        <label class="form-check-label" for="customer">Administrator</label>
                                     </div>
+                                    
                                     <div class="form-check custom-radio">
                                         <input class="form-check-input" type="radio" name="role" id="owner" value="2">
-                                        <label class="form-check-label" for="owner">Administrator</label>
+                                        <label class="form-check-label" for="owner">Customer</label>
                                     </div>
                                 </div>
                         
@@ -192,6 +197,16 @@
             </div>
         </div>
     </div>
+<script>
+function togglePassword() {
+    let pwd = document.getElementById("password");
+    let confirmPwd = document.getElementById("confirm_password");
+    [pwd, confirmPwd].forEach(input => {
+        input.type = input.type === "password" ? "text" : "password";
+    });
+}
+</script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -137,19 +137,32 @@
                                 <input type="email" class="form-control animate__animated animate__fadeInUp" id="email" name="email" required>
                             </div>
                             <div class="mb-4">
-                                <label for="password" class="form-label">Password <i class="fa fa-lock"></i></label>
-                                <input type="password" class="form-control animate__animated animate__fadeInUp" id="password" name="password" required>
-                            </div>
-                            <button type="submit" class="btn btn-custom w-100 animate-pulse-custom">Login</button>
-                        </form>
-                    </div>
+                            <label for="password" class="form-label">Password <i class="fa fa-lock"></i></label>
+                                     <input type="password" class="form-control animate__animated animate__fadeInUp" id="password" name="password" required>
+                                    <div class="form-check mt-2">
+                                        <input class="form-check-input" type="checkbox" id="showPassword" onclick="togglePassword()">
+                                        <label class="form-check-label" for="showPassword">Show Password</label>
+                                    </div>
+                                    </div>
                     <div class="card-footer text-center">
                         Don't have an account? <a href="register.php" class="highlight">Register here</a>.
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
+<script>
+     function togglePassword() {
+             let passwordInput = document.getElementById("password");
+                   if (passwordInput.type === "password") {
+                             passwordInput.type = "text";
+            } else {
+                     passwordInput.type = "password";
+            }
+           }
+</script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

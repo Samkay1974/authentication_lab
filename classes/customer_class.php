@@ -3,17 +3,24 @@ require_once __DIR__ . '/../settings/db_class.php';
 
 class Customer extends db_connection
 {
+    
+    public function __construct()
+    {
+        
+        $this->db = $this->db_conn();
+    }
+
     /**
-     * Add a new customer (registration)
-     */
+     * Add a new customer (registration) */
+    
     public function add_customer($name, $email, $password, $phone_number, $country, $city, $role = 2)
     {
         // Hash password before storing
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         $stmt = $this->db->prepare("INSERT INTO customer 
-            (customer_name, customer_email, customer_pass, customer_country, customer_city, customer_contact, customer_image, user_role) 
-            VALUES (?, ?, ?, ?, ?, ?, NULL, ?)");
+            (customer_name, customer_email, customer_pass, customer_country, customer_city, customer_contact, user_role) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)");
 
         if (!$stmt) {
             return false;
