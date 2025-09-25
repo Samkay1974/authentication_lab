@@ -1,29 +1,46 @@
 // Settings/core.php
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-
-//for header redirection
 ob_start();
 
-//funtion to check for login
-if (!isset($_SESSION['id'])) {
-    header("Location: ../login/login.php");
-    exit;
+
+/**
+ * Check if user is logged in
+ * @return bool
+ */
+function isLoggedIn()
+{
+    return isset($_SESSION['customer_id']); // Giving true if session exists
 }
 
-
-//function to get user ID
+/**
+ * Get user ID from session
+ * @return int|null
+ */
 function get_user_id()
 {
-    return isset($_SESSION['id']) ? $_SESSION['id'] : null;
+    return isset($_SESSION['customer_id']) ? $_SESSION['customer_id'] : null;
 }
 
-//function to check for role (admin, customer, etc)
+/**
+ * Check if user has a specific role
+ * @param int $role
+ * @return bool
+ */
 function check_user_role($role)
 {
-    return isset($_SESSION['role']) && $_SESSION['role'] === $role;
+    return isset($_SESSION['user_role']) && $_SESSION['user_role'] == $role;
 }
 
-
+/**
+ * Check if user is admin
+ * @return bool
+ */
+function isAdmin()
+{
+    return check_user_role(1); // 1 is the role ID for admin
+}
 ?>
