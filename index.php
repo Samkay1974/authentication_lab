@@ -1,9 +1,13 @@
+<?php
+require_once __DIR__.'/settings/core.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Home</title>
+	<title>HomePage- PizzaHub</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 	<style>
 		.menu-tray {
@@ -22,25 +26,38 @@
 			font-size: 70px;
 		}
 		p{
-			font-family: 'Times New Roman', Times, serif
+			font-family: 'Times New Roman', Times, serif;
 		}
 	</style>
 </head>
 <body>
 
 	<div class="menu-tray">
-		<!-- <span class="me-2">Menu:</span> -->
-		<a href="login/register.php" class="btn btn-sm btn-outline-primary">Register</a>
-		<a href="login/login.php" class="btn btn-sm btn-outline-secondary">Login</a>
+		<?php if (!isLoggedIn()): ?>
+			<a href="login/register.php" class="btn btn-sm btn-outline-primary">Join Us</a>
+			<a href="login/login.php" class="btn btn-sm btn-outline-secondary">Sign In</a>
+		<?php else: ?>
+			<a href="login/logout.php" class="btn btn-sm btn-outline-danger">Logout</a>
+			<?php if (isAdmin()): ?>
+				<a href="admin/category.php" class="btn btn-sm btn-outline-success">Category</a>
+			<?php endif; ?>
+		<?php endif; ?>
 	</div>
 
 	<div class="container" style="padding-top:120px;">
 		<div class="text-center">
 			<h1>Hey There! Welcome</h1>
-			<p class="text-muted">Check your top-right to Register or login.</p>
+			<p class="text-muted">
+				<?php if (isLoggedIn()): ?>
+					Welcome back, <?= htmlspecialchars($_SESSION['customer_name']) ?>!
+				<?php else: ?>
+					Look up there on your top right corner to Sign Up or Login.
+				<?php endif; ?>
+			</p>
 		</div>
 	</div>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+

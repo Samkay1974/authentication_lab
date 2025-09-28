@@ -139,11 +139,16 @@
                             <div class="mb-4">
                             <label for="password" class="form-label">Password <i class="fa fa-lock"></i></label>
                                      <input type="password" class="form-control animate__animated animate__fadeInUp" id="password" name="password" required>
-                                    <div class="form-check mt-2">
+                            </div>
+                            <div class="mb-4">
+                            <button type="submit" class="btn btn-custom w-100 animate-pulse-custom">Login</button>
+                            </div>
+
+                            <div class="form-check mt-2">
                                         <input class="form-check-input" type="checkbox" id="showPassword" onclick="togglePassword()">
                                         <label class="form-check-label" for="showPassword">Show Password</label>
                                     </div>
-                                    </div>
+                                </div>
                     <div class="card-footer text-center">
                         Don't have an account? <a href="register.php" class="highlight">Register here</a>.
                     </div>
@@ -154,7 +159,7 @@
     </div>
 <script>
      function togglePassword() {
-             let passwordInput = document.getElementById("password");
+             let passwordInput = document.getElementById("password"); 
                    if (passwordInput.type === "password") {
                              passwordInput.type = "text";
             } else {
