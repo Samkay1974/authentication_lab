@@ -5,7 +5,7 @@ header('Content-Type: application/json');
 require_once __DIR__ . '/../settings/core.php';
 require_once __DIR__ . '/../controllers/category_controller.php';
 
-// Ensure user is logged in
+// Ensuring user is logged in
 if (!isLoggedIn()) {
     echo json_encode([
         "status" => "error",
@@ -14,7 +14,10 @@ if (!isLoggedIn()) {
     exit;
 }
 
-// Validate input
+
+file_put_contents('debug_post.txt', print_r($_POST, true));
+
+
 if (empty($_POST['cat_name'])) {
     echo json_encode([
         "status" => "error",
@@ -23,10 +26,10 @@ if (empty($_POST['cat_name'])) {
     exit;
 }
 
-$user_id = get_user_id();
+$user_id = $_SESSION['customer_id'];
 $category_name = trim($_POST['cat_name']);
 
-// Add category
+
 $result = add_category_ctr($user_id, $category_name);
 
 if ($result) {

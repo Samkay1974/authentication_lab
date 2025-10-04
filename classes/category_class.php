@@ -36,7 +36,7 @@ class Category extends db_connection
     {
         $db = $this->db_conn();
 
-        $stmt = $db->prepare("SELECT * FROM categories WHERE user_id = ?");
+        $stmt = $db->prepare("SELECT * FROM categories WHERE user_id = ? ORDER BY cat_id DESC");
         if (!$stmt) {
             return false;
         }

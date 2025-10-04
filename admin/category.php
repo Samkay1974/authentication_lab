@@ -1,8 +1,7 @@
 <?php
-// category.php (Admin)
 require_once __DIR__ . '/../settings/core.php';
 
-// Check if logged in
+// To check if logged in
 if (!isLoggedIn()) {
     header("Location: ../login/login.php");
     exit;
@@ -22,13 +21,15 @@ if (!isAdmin()) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../js/category.js"></script>
+   
 </head>
 <body class="p-5">
     <div class="container">
-        <h2 class="mb-4">Manage Pizza Categories</h2>
+        <?php if (isLoggedIn()): ?>
+        <h2 class="mb-4"><?= htmlspecialchars($_SESSION['customer_name']) ?>'s Category Manager</h2>
+				<?php endif; ?>
 
-        <!-- CREATE -->
+        <!-- This section is to create the category and puts into the table -->
         <div class="card mb-4">
             <div class="card-body">
                 <form id="create-category-form">
@@ -41,7 +42,7 @@ if (!isAdmin()) {
             </div>
         </div>
 
-        <!-- RETRIEVE -->
+        <!-- This section retrieves and displays the categories created by the user-->
         <div class="card">
             <div class="card-body">
                 <h5>Your Categories</h5>
@@ -53,15 +54,15 @@ if (!isAdmin()) {
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="categories-body">
-                        <!-- Loaded by category.js via fetch_category_action.php -->
+                    <tbody id="categoryTableBody">
+                    <!-- Filled up by what user enters -->
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <!-- Update Modal -->
+    <!-- Update-->
     <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog">
         <form id="edit-category-form" class="modal-content">
@@ -73,7 +74,7 @@ if (!isAdmin()) {
             <input type="hidden" id="edit_category_id" name="category_id">
             <div class="mb-3">
               <label for="edit_category_name" class="form-label">Category Name</label>
-              <input type="text" id="edit_category_name" name="category_name" class="form-control" required>
+              <input type="text" id="edit_category_name" name="cat_name" class="form-control" required>
             </div>
           </div>
           <div class="modal-footer">
@@ -85,5 +86,7 @@ if (!isAdmin()) {
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/category.js?v=<?php echo time(); ?>"></script>
+
 </body>
 </html>

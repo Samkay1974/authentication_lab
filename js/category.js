@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+    // === LOAD CATEGORIES ===
     function loadCategories() {
         $.ajax({
             url: "../actions/fetch_category_action.php",
@@ -9,36 +10,41 @@ $(document).ready(function () {
                 let tbody = $("#categoryTableBody");
                 tbody.empty();
 
-                if (categories.length === 0) {
+                if (!Array.isArray(categories) || categories.length === 0) {
                     tbody.append("<tr><td colspan='3' class='text-center'>No categories found.</td></tr>");
                 } else {
                     categories.forEach(function (cat) {
                         tbody.append(`
                             <tr>
-                                <td>${cat.category_id}</td>
-                                <td>${cat.category_name}</td>
+                                <td>${cat.cat_id}</td>
+                                <td>${cat.cat_name}</td>
                                 <td>
-                                    <button class="btn btn-warning btn-sm editBtn" data-id="${cat.category_id}" data-name="${cat.category_name}">Edit</button>
-                                    <button class="btn btn-danger btn-sm deleteBtn" data-id="${cat.category_id}">Delete</button>
+                                    <button class="btn btn-warning btn-sm editBtn" 
+                                        data-id="${cat.cat_id}" 
+                                        data-name="${cat.cat_name}">Edit</button>
+                                    <button class="btn btn-danger btn-sm deleteBtn" 
+                                        data-id="${cat.cat_id}">Delete</button>
                                 </td>
                             </tr>
                         `);
                     });
                 }
             },
-            error: function () {
+            error: function (xhr, status, error) {
+                console.error("Fetch error:", xhr.responseText);
                 Swal.fire("Error", "Failed to fetch categories.", "error");
             }
         });
     }
+
     loadCategories();
 
     // === CREATE CATEGORY ===
-    $("#addCategoryForm").submit(function (e) {
+    $("#create-category-form").submit(function (e) {
         e.preventDefault();
-        let category_name = $("#category_name").val().trim();
+        let cat_name = $("#cat_name").val();
 
-        if (category_name === "") {
+        if (!cat_name || cat_name.trim() === "") {
             Swal.fire("Error", "Category name is required!", "error");
             return;
         }
@@ -46,18 +52,19 @@ $(document).ready(function () {
         $.ajax({
             url: "../actions/add_category_action.php",
             type: "POST",
-            data: { category_name: category_name },
+            data: { cat_name: cat_name.trim() },
             dataType: "json",
             success: function (response) {
                 if (response.status === "success") {
                     Swal.fire("Success", response.message, "success");
-                    $("#addCategoryForm")[0].reset();
+                    $("#create-category-form")[0].reset();
                     loadCategories();
                 } else {
                     Swal.fire("Error", response.message, "error");
                 }
             },
-            error: function () {
+            error: function (xhr, status, error) {
+                console.error("Add error:", xhr.responseText);
                 Swal.fire("Error", "Could not add category.", "error");
             }
         });
@@ -65,7 +72,7 @@ $(document).ready(function () {
 
     // === UPDATE CATEGORY ===
     $(document).on("click", ".editBtn", function () {
-        let category_id = $(this).data("id");
+        let cat_id = $(this).data("id");
         let old_name = $(this).data("name");
 
         Swal.fire({
@@ -77,6 +84,7 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 let new_name = result.value.trim();
+
                 if (new_name === "") {
                     Swal.fire("Error", "Category name cannot be empty!", "error");
                     return;
@@ -85,7 +93,7 @@ $(document).ready(function () {
                 $.ajax({
                     url: "../actions/update_category_action.php",
                     type: "POST",
-                    data: { category_id: category_id, category_name: new_name },
+                    data: { cat_id: cat_id, cat_name: new_name },
                     dataType: "json",
                     success: function (response) {
                         if (response.status === "success") {
@@ -95,7 +103,8 @@ $(document).ready(function () {
                             Swal.fire("Error", response.message, "error");
                         }
                     },
-                    error: function () {
+                    error: function (xhr) {
+                        console.error("Update error:", xhr.responseText);
                         Swal.fire("Error", "Could not update category.", "error");
                     }
                 });
@@ -105,20 +114,20 @@ $(document).ready(function () {
 
     // === DELETE CATEGORY ===
     $(document).on("click", ".deleteBtn", function () {
-        let category_id = $(this).data("id");
+        let cat_id = $(this).data("id");
 
         Swal.fire({
             title: "Are you sure?",
             text: "This will delete the category permanently.",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonText: "Yes, delete it!"
+            confirmButtonText: "I approve!"
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
                     url: "../actions/delete_category_action.php",
                     type: "POST",
-                    data: { category_id: category_id },
+                    data: { cat_id: cat_id },
                     dataType: "json",
                     success: function (response) {
                         if (response.status === "success") {
@@ -128,8 +137,9 @@ $(document).ready(function () {
                             Swal.fire("Error", response.message, "error");
                         }
                     },
-                    error: function () {
-                        Swal.fire("Error", "Could not delete category.", "error");
+                    error: function (xhr) {
+                        console.error("Delete error:", xhr.responseText);
+                        Swal.fire("Error", "Category could not be deleted.", "error");
                     }
                 });
             }

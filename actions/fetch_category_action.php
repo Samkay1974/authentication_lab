@@ -11,15 +11,11 @@ if (!isLoggedIn()) {
     exit;
 }
 
-$user_id = get_user_id();
+$user_id = $_SESSION['customer_id'];
 
 // Fetch categories created by this user
 $categories = get_categories_by_user_ctr($user_id);
 
-// Return as JSON
-if ($categories && is_array($categories)) {
-    echo json_encode($categories);
-} else {
-    echo json_encode([]);
-}
+echo json_encode($categories ?: []);
+
 ?>
