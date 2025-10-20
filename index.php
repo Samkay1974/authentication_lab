@@ -40,6 +40,7 @@ require_once __DIR__.'/settings/core.php';
 			<a href="login/logout.php" class="btn btn-sm btn-outline-danger">Logout</a>
 			<?php if (isAdmin()): ?>
 				<a href="admin/category.php" class="btn btn-sm btn-outline-success">Category</a>
+				<a href="admin/brand.php" class="btn btn-sm btn-outline-success">Brand</a>
 			<?php endif; ?>
 		<?php endif; ?>
 	</div>

@@ -27,6 +27,7 @@ if (!isAdmin()) {
     <div class="container">
         <?php if (isLoggedIn()): ?>
         <h2 class="mb-4"><?= htmlspecialchars($_SESSION['customer_name']) ?>'s Category Manager</h2>
+        <a style="position: absolute; top: 20px; right: 20px;" href="../index.php" class="btn btn-outline-secondary">Back</a>
 				<?php endif; ?>
 
         <!-- This section is to create the category and puts into the table -->

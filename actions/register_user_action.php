@@ -6,8 +6,10 @@ session_start();
 
 $response = array();
 
+
+
 // TODO: Check if the user is already logged in and redirect to the dashboard
-if (isset($_SESSION['user_id'])) {
+if (isset($_SESSION['customer_id'])) {
     $response['status'] = 'error';
     $response['message'] = 'You are already logged in';
     echo json_encode($response);
@@ -24,7 +26,19 @@ $country = $_POST['country'];
 $city = $_POST['city'];
 $role = $_POST['role'];
 
+$check = get_user_by_email_ctr($email);
+if ($check) {
+    echo json_encode([
+        "status" => "error",
+        "message" => "This email is already registered. Please use a different one."
+    ]);
+    exit;
+}      
+
 $user_id = register_user_ctr($name, $email, $password, $phone_number, $country, $city, $role);
+
+
+// Check if email already exists
 
 if ($user_id) {
     $response['status'] = 'success';

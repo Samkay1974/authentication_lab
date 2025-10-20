@@ -5,13 +5,13 @@ $(document).ready(function() {
         let name = $('#name').val();
         let email = $('#email').val();
         let password = $('#password').val();
-        let confirm_password = $('#confirm_password').val(); // new confirm field
+        let confirm_password = $('#confirm_password').val(); 
         let phone_number = $('#phone_number').val();
         let country = $('#country').val();
         let city = $('#city').val();
         let role = $('input[name="role"]:checked').val();
 
-        
+  
 
         // Check required fields
         if (name == '' || email == '' || password == '' || confirm_password == '' || phone_number == '' || country == '' || city == '') {
