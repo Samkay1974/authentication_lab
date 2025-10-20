@@ -1,6 +1,6 @@
 <?php
-include_once 'db_cred.php';
-// include_once 'server_cred.php';
+// include_once 'ser_cred.php';
+include_once 'server_cred.php';
 
 /**
  *@version 1.1
