@@ -41,6 +41,7 @@ require_once __DIR__.'/settings/core.php';
 			<?php if (isAdmin()): ?>
 				<a href="admin/category.php" class="btn btn-sm btn-outline-success">Category</a>
 				<a href="admin/brand.php" class="btn btn-sm btn-outline-success">Brand</a>
+				<a href="admin/product.php" class="btn btn-sm btn-outline-success">Product</a>
 			<?php endif; ?>
 		<?php endif; ?>
 	</div>
