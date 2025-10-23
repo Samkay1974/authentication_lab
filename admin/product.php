@@ -32,7 +32,8 @@ $brands = get_all_brands_ctr($user_id);
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold text-primary"> Manage Pizza Products</h2>
-        <button id="showAddFormBtn" class="btn btn-success">+ Add Product</button>
+        <!-- IMPORTANT: type="button" so it won't submit forms accidentally -->
+        <button id="showAddFormBtn" type="button" class="btn btn-success">+ Add Product</button>
     </div>
 
     <!-- ADD PRODUCT FORM -->
@@ -88,7 +89,7 @@ $brands = get_all_brands_ctr($user_id);
                     <input type="file" class="form-control" name="product_image" accept="image/*" required>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100">Add Product</button>
+                <button type="submit" id="productFormSubmit" class="btn btn-primary w-100">Add Product</button>
             </form>
         </div>
     </div>
@@ -109,8 +110,11 @@ $brands = get_all_brands_ctr($user_id);
 
                     foreach ($cat_products as $p) {
                         $image = !empty($p['product_image']) ? $p['product_image'] : '../images/default_pizza.png';
+
+                        // IMPORTANT: add data-product-card so JS can remove the card on delete,
+                        // and give the Edit link a class and data-id for JS to catch.
                         echo "
-                        <div class='col-md-3'>
+                        <div class='col-md-3' data-product-card='{$p['product_id']}'>
                             <div class='product-card shadow-sm'>
                                 <img src='$image' class='product-img' alt='Product Image'>
                                 <div class='product-info'>
@@ -118,7 +122,8 @@ $brands = get_all_brands_ctr($user_id);
                                     <p class='text-muted mb-1'><strong>Brand:</strong> " . htmlspecialchars($p['brand_name']) . "</p>
                                     <p class='product-price'>₵" . number_format($p['product_price'], 2) . "</p>
                                     <div class='mt-2 d-flex justify-content-between'>
-                                        <a href='#' class='btn btn-sm btn-outline-primary'>Edit</a>
+                    
+                                        <a href='#' class='btn btn-sm btn-outline-primary editBtn' data-id='{$p['product_id']}'>Edit</a>
                                         <button class='btn btn-sm btn-outline-danger deleteBtn' data-id='{$p['product_id']}'>Delete</button>
                                     </div>
                                 </div>
