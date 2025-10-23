@@ -35,7 +35,7 @@ $brands = get_all_brands_ctr($user_id);
         <a style="position: absolute; top: 20px; right: 20px;" href="../index.php" class="btn btn-outline-secondary">Back</a>
 				<?php endif; ?>
     <div>
-    <button id="showAddFormBtn" type="button" class="btn btn-success">+ Add Product</button>
+    <button id="showAddFormBtn" type="button" class="btn btn-success">+ Add New Product</button>
     </div>
 
     <!-- ADD PRODUCT FORM -->
