@@ -66,7 +66,7 @@ $(function () {
       const id = $(this).data("id");
       if (!id) return;
       // For now navigate to an edit page if you have one:
-      window.location.href = `edit_product.php?id=${id}`;
+      window.location.href = `update_product_action.php?id=${id}`;
       // Or you could open a modal and load product details via AJAX, then allow editing inline.
     });
 
