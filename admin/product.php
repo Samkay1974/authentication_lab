@@ -30,10 +30,12 @@ $brands = get_all_brands_ctr($user_id);
 <body class="bg-light">
 <div class="container py-5">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold text-primary"> Manage Pizza Products</h2>
-        <!-- IMPORTANT: type="button" so it won't submit forms accidentally -->
-        <button id="showAddFormBtn" type="button" class="btn btn-success">+ Add Product</button>
+    <?php if (isLoggedIn()): ?>
+        <h2 class="mb-4"><?= htmlspecialchars($_SESSION['customer_name']) ?>'s Product Manager</h2>
+        <a style="position: absolute; top: 20px; right: 20px;" href="../index.php" class="btn btn-outline-secondary">Back</a>
+				<?php endif; ?>
+    <div>
+    <button id="showAddFormBtn" type="button" class="btn btn-success">+ Add Product</button>
     </div>
 
     <!-- ADD PRODUCT FORM -->
