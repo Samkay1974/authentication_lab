@@ -107,43 +107,43 @@ $("#editProductForm").submit(function (e) {
 });
 
 
-  // Delegated Delete handler
-    $(document).off("click", ".deleteBtn").on("click", ".deleteBtn", function (e) {
-      e.preventDefault();
-      const id = $(this).data("id");
-      if (!id) return;
-      Swal.fire({
-        title: "Delete product?",
-        text: "This will permanently delete the product.",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, delete"
-      }).then(function (res) {
-        if (res.isConfirmed) {
-          $.ajax({
-            url: "../actions/delete_product_action.php",
-            type: "POST",
-            data: { product_id: id },
-            dataType: "json",
-            success: function (resp) {
-              if (resp && resp.status === "success") {
-                Swal.fire("Deleted", resp.message || "Product deleted", "success").then(function () {
-                  // remove card from DOM without reload
-                  $(`[data-product-card="${id}"]`).fadeOut(300, function () { $(this).remove(); });
-                });
-              } else {
-                Swal.fire("Error", (resp && resp.message) ? resp.message : "Could not delete", "error");
-              }
-            },
-            error: function (xhr) {
-              console.error("Delete error:", xhr.responseText || xhr.statusText);
-              Swal.fire("Error", "Server error. Check console.", "error");
-            }
-          });
-        }
-      });
-    });
-  }
+  // // Delegated Delete handler
+  //   $(document).off("click", ".deleteBtn").on("click", ".deleteBtn", function (e) {
+  //     e.preventDefault();
+  //     const id = $(this).data("id");
+  //     if (!id) return;
+  //     Swal.fire({
+  //       title: "Delete product?",
+  //       text: "This will permanently delete the product.",
+  //       icon: "warning",
+  //       showCancelButton: true,
+  //       confirmButtonText: "Yes, delete"
+  //     }).then(function (res) {
+  //       if (res.isConfirmed) {
+  //         $.ajax({
+  //           url: "../actions/delete_product_action.php",
+  //           type: "POST",
+  //           data: { product_id: id },
+  //           dataType: "json",
+  //           success: function (resp) {
+  //             if (resp && resp.status === "success") {
+  //               Swal.fire("Deleted", resp.message || "Product deleted", "success").then(function () {
+  //                 // remove card from DOM without reload
+  //                 $(`[data-product-card="${id}"]`).fadeOut(300, function () { $(this).remove(); });
+  //               });
+  //             } else {
+  //               Swal.fire("Error", (resp && resp.message) ? resp.message : "Could not delete", "error");
+  //             }
+  //           },
+  //           error: function (xhr) {
+  //             console.error("Delete error:", xhr.responseText || xhr.statusText);
+  //             Swal.fire("Error", "Server error. Check console.", "error");
+  //           }
+  //         });
+  //       }
+  //     });
+  //   });
+  // }
 
 // initialize
   initProductHandlers();
