@@ -213,7 +213,7 @@ $brands = get_all_brands_ctr($user_id);
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <button type="submit" class="btn btn-primary">Confirm Changes</button>
       </div>
     </form>
   </div>
