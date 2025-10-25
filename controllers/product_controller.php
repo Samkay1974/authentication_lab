@@ -27,4 +27,8 @@ function update_product_image_ctr($product_id, $relative_path) {
     $product = new Product();
     return $product->update_product_image($product_id, $relative_path);
 }
+function get_single_product_ctr($id) {
+    $product = new Product();
+    return $product->get_single_product($id, $_SESSION['customer_id']);
+}
 ?>

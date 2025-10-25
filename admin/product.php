@@ -4,7 +4,7 @@ require_once __DIR__ . '/../controllers/product_controller.php';
 require_once __DIR__ . '/../controllers/category_controller.php';
 require_once __DIR__ . '/../controllers/brand_controller.php';
 
-// Authentication check
+// authorization check
 if (!isLoggedIn() || !isAdmin()) {
     header("Location: ../login/login.php");
     exit;
@@ -113,8 +113,6 @@ $brands = get_all_brands_ctr($user_id);
                     foreach ($cat_products as $p) {
                         $image = !empty($p['product_image']) ? $p['product_image'] : '../images/default_pizza.png';
 
-                        // IMPORTANT: add data-product-card so JS can remove the card on delete,
-                        // and give the Edit link a class and data-id for JS to catch.
                         echo "
                         <div class='col-md-3' data-product-card='{$p['product_id']}'>
                             <div class='product-card shadow-sm'>
@@ -124,8 +122,19 @@ $brands = get_all_brands_ctr($user_id);
                                     <p class='text-muted mb-1'><strong>Brand:</strong> " . htmlspecialchars($p['brand_name']) . "</p>
                                     <p class='product-price'>₵" . number_format($p['product_price'], 2) . "</p>
                                     <div class='mt-2 d-flex justify-content-between'>
-                    
-                                        <a href='#' class='btn btn-sm btn-outline-primary editBtn' data-id='{$p['product_id']}'>Edit</a>
+                                    // Edit button 
+                                            <button 
+                                                class='btn btn-sm btn-outline-primary editBtn'
+                                                data-id='{$p['product_id']}'
+                                                data-title='" . htmlspecialchars($p['product_title'], ENT_QUOTES) . "'
+                                                data-price='{$p['product_price']}'
+                                                data-desc='" . htmlspecialchars($p['product_desc'], ENT_QUOTES) . "'
+                                                data-keywords='" . htmlspecialchars($p['product_keywords'], ENT_QUOTES) . "'
+                                                data-cat='{$p['product_cat']}'
+                                                data-brand='{$p['product_brand']}'>
+                                                Edit
+                                            </button>
+                                            //Delete button
                                         <button class='btn btn-sm btn-outline-danger deleteBtn' data-id='{$p['product_id']}'>Delete</button>
                                     </div>
                                 </div>
@@ -142,5 +151,74 @@ $brands = get_all_brands_ctr($user_id);
 </div>
 
 <script src="../js/product.js"></script>
+<!-- EDIT PRODUCT MODAL -->
+<div class="modal fade" id="editProductModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <form id="editProductForm" class="modal-content" enctype="multipart/form-data">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Product</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <input type="hidden" name="product_id" id="edit_product_id">
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label">Product Title</label>
+            <input type="text" class="form-control" name="product_title" id="edit_product_title" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Product Price (₵)</label>
+            <input type="number" step="0.01" class="form-control" name="product_price" id="edit_product_price" required>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label">Category</label>
+            <select class="form-select" name="product_cat" id="edit_product_cat" required>
+              <option value="">Select Category</option>
+              <?php foreach ($categories as $cat): ?>
+                <option value="<?= $cat['cat_id'] ?>"><?= htmlspecialchars($cat['cat_name']) ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Brand</label>
+            <select class="form-select" name="product_brand" id="edit_product_brand" required>
+              <option value="">Select Brand</option>
+              <?php foreach ($brands as $brand): ?>
+                <option value="<?= $brand['brand_id'] ?>"><?= htmlspecialchars($brand['brand_name']) ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Description</label>
+          <textarea class="form-control" name="product_desc" id="edit_product_desc" rows="3" required></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Keywords</label>
+          <input type="text" class="form-control" name="product_keywords" id="edit_product_keywords" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Product Image</label>
+          <input type="file" class="form-control" name="product_image" id="edit_product_image" accept="image/*">
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 </body>
 </html>
