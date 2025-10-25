@@ -131,8 +131,7 @@ $brands = get_all_brands_ctr($user_id);
                                                 data-desc='" . htmlspecialchars($p['product_desc'], ENT_QUOTES) . "'
                                                 data-keywords='" . htmlspecialchars($p['product_keywords'], ENT_QUOTES) . "'
                                                 data-cat='{$p['product_cat']}'
-                                                data-brand='{$p['product_brand']}'>
-                                                Edit
+                                                data-brand='{$p['product_brand']}'>Edit
                                             </button>
         
                                         <button class='btn btn-sm btn-outline-danger deleteBtn' data-id='{$p['product_id']}'>Delete</button>

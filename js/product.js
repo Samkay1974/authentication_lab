@@ -60,6 +60,53 @@ $(function () {
       });
     });
 
+    // Handle Edit Button Click
+$(document).off("click", ".editBtn").on("click", ".editBtn", function (e) {
+      e.preventDefault();
+      const product = $(this).data();
+
+    $("#edit_product_id").val(product.id);
+    $("#edit_product_title").val(product.title);
+    $("#edit_product_price").val(product.price);
+    $("#edit_product_desc").val(product.desc);
+    $("#edit_product_keywords").val(product.keywords);
+    $("#edit_product_cat").val(product.cat);
+    $("#edit_product_brand").val(product.brand);
+
+    $("#editProductModal").modal("show");
+});
+
+// Handle Edit Form Submit
+
+$("#editProductForm").submit(function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+
+    $.ajax({
+        url: "../actions/update_product_action.php",
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: "json",
+        success: function (response) {
+            if (response.status === "success") {
+                Swal.fire("Updated!", response.message, "success").then(() => {
+                    location.reload();
+                });
+            } else {
+                Swal.fire("Error", response.message, "error");
+            }
+        },
+        error: function (xhr) {
+            console.error("Update error:", xhr.responseText);
+            Swal.fire("Error", "Could not update product.", "error");
+        }
+    });
+});
+
+
     // Delegated Edit button handler
 //  $(document).on("click", ".editBtn", function (e) {
 //   e.preventDefault();
@@ -139,49 +186,6 @@ $(function () {
       });
     });
   }
-// Handle Edit Button Click
-$(document).on("click", ".editBtn", function () {
-    const product = $(this).data();
-    
-    $("#edit_product_id").val(product.id);
-    $("#edit_product_title").val(product.title);
-    $("#edit_product_price").val(product.price);
-    $("#edit_product_desc").val(product.desc);
-    $("#edit_product_keywords").val(product.keywords);
-    $("#edit_product_cat").val(product.cat);
-    $("#edit_product_brand").val(product.brand);
-
-    $("#editProductModal").modal("show");
-});
-
-// Handle Edit Form Submit
-$("#editProductForm").submit(function (e) {
-    e.preventDefault();
-
-    const formData = new FormData(this);
-
-    $.ajax({
-        url: "../actions/update_product_action.php",
-        type: "POST",
-        data: formData,
-        processData: false,
-        contentType: false,
-        dataType: "json",
-        success: function (response) {
-            if (response.status === "success") {
-                Swal.fire("Updated!", response.message, "success").then(() => {
-                    location.reload();
-                });
-            } else {
-                Swal.fire("Error", response.message, "error");
-            }
-        },
-        error: function (xhr) {
-            console.error("Update error:", xhr.responseText);
-            Swal.fire("Error", "Could not update product.", "error");
-        }
-    });
-});
 
 // initialize
   initProductHandlers();
