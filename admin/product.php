@@ -122,7 +122,7 @@ $brands = get_all_brands_ctr($user_id);
                                     <p class='text-muted mb-1'><strong>Brand:</strong> " . htmlspecialchars($p['brand_name']) . "</p>
                                     <p class='product-price'>₵" . number_format($p['product_price'], 2) . "</p>
                                     <div class='mt-2 d-flex justify-content-between'>
-                                    // Edit button 
+                                  
                                             <button 
                                                 class='btn btn-sm btn-outline-primary editBtn'
                                                 data-id='{$p['product_id']}'
@@ -134,7 +134,7 @@ $brands = get_all_brands_ctr($user_id);
                                                 data-brand='{$p['product_brand']}'>
                                                 Edit
                                             </button>
-                                            //Delete button
+        
                                         <button class='btn btn-sm btn-outline-danger deleteBtn' data-id='{$p['product_id']}'>Delete</button>
                                     </div>
                                 </div>

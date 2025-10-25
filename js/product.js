@@ -61,46 +61,46 @@ $(function () {
     });
 
     // Delegated Edit button handler
- $(document).on("click", ".editBtn", function (e) {
-  e.preventDefault();
-  const id = $(this).data("id");
+//  $(document).on("click", ".editBtn", function (e) {
+//   e.preventDefault();
+//   const id = $(this).data("id");
 
-  Swal.fire({
-    title: "Edit Product Title",
-    input: "text",
-    inputLabel: "Enter new product title",
-    showCancelButton: true,
-    confirmButtonText: "Update"
-  }).then((result) => {
-    if (result.isConfirmed) {
-      const newTitle = result.value.trim();
-      if (!newTitle) {
-        Swal.fire("Error", "Title cannot be empty.", "error");
-        return;
-      }
+//   Swal.fire({
+//     title: "Edit Product Title",
+//     input: "text",
+//     inputLabel: "Enter new product title",
+//     showCancelButton: true,
+//     confirmButtonText: "Update"
+//   }).then((result) => {
+//     if (result.isConfirmed) {
+//       const newTitle = result.value.trim();
+//       if (!newTitle) {
+//         Swal.fire("Error", "Title cannot be empty.", "error");
+//         return;
+//       }
 
-      $.ajax({
-        url: "../actions/update_product_action.php",
-        type: "POST",
-        data: { product_id: id, product_title: newTitle },
-        dataType: "json",
-        success: function (response) {
-          if (response.status === "success") {
-            Swal.fire("Updated!", response.message, "success");
-            // Optionally refresh product list
-            location.reload();
-          } else {
-            Swal.fire("Error", response.message, "error");
-          }
-        },
-        error: function (xhr) {
-          console.error(xhr.responseText);
-          Swal.fire("Error", "Could not update product.", "error");
-        }
-      });
-    }
-  });
-});
+//       $.ajax({
+//         url: "../actions/update_product_action.php",
+//         type: "POST",
+//         data: { product_id: id, product_title: newTitle },
+//         dataType: "json",
+//         success: function (response) {
+//           if (response.status === "success") {
+//             Swal.fire("Updated!", response.message, "success");
+//             // Optionally refresh product list
+//             location.reload();
+//           } else {
+//             Swal.fire("Error", response.message, "error");
+//           }
+//         },
+//         error: function (xhr) {
+//           console.error(xhr.responseText);
+//           Swal.fire("Error", "Could not update product.", "error");
+//         }
+//       });
+//     }
+//   });
+// });
 
     // Delegated Delete handler
     $(document).off("click", ".deleteBtn").on("click", ".deleteBtn", function (e) {
