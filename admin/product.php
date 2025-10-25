@@ -149,7 +149,7 @@ $brands = get_all_brands_ctr($user_id);
     </div>
 </div>
 
-<script src="../js/product.js"></script>
+
 <!-- EDIT PRODUCT MODAL -->
 <div class="modal fade" id="editProductModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -218,6 +218,6 @@ $brands = get_all_brands_ctr($user_id);
     </form>
   </div>
 </div>
-
+<script src="../js/product.js"></script>
 </body>
 </html>
