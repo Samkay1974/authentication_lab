@@ -97,14 +97,14 @@ class Product extends db_connection {
     }
 
     // GET SINGLE PRODUCT
-public function get_single_product($product_id, $user_id)
+public function get_single_product($product_id)
 {
     $db = $this->db_conn();
 
-    $stmt = $db->prepare("SELECT * FROM products WHERE product_id=? AND user_id=?");
+    $stmt = $db->prepare("SELECT * FROM products WHERE product_id=?");
     if (!$stmt) return false;
 
-    $stmt->bind_param("ii", $product_id, $user_id);
+    $stmt->bind_param("i", $product_id);
     $stmt->execute();
     $result = $stmt->get_result()->fetch_assoc();
     $stmt->close();
