@@ -20,7 +20,7 @@ $brands = get_all_brands_ctr(isset($_SESSION['customer_id']) ? $_SESSION['custom
   <meta charset="utf-8">
   <title>All Products - Easy Pizza</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/product_store.css">
+  <link rel="stylesheet" href="../css/product_store.css">
 </head>
 <body class="bg-light">
   <div class="container py-4">
@@ -46,6 +46,8 @@ $brands = get_all_brands_ctr(isset($_SESSION['customer_id']) ? $_SESSION['custom
     <div id="productGrid" class="row">
       <!-- cards injected by js -->
     </div>
+
+
 
     <div id="productPagination" class="mt-4"></div>
   </div>
