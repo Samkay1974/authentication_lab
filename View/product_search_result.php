@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/controllers/product_controller.php';
+require_once __DIR__ . '/../controllers/product_controller.php';
 $q = trim($_GET['q'] ?? '');
 $products = [];
 if ($q !== '') {

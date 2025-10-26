@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/controllers/product_controller.php';
+require_once __DIR__ . '/../controllers/product_controller.php';
 $id = intval($_GET['id'] ?? 0);
 $product = view_single_product_ctr($id);
 if (!$product) {
