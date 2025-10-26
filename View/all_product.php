@@ -1,9 +1,9 @@
 
 
 <?php
-require_once __DIR__ . '/settings/core.php';
-require_once __DIR__ . '/controllers/category_controller.php';
-require_once __DIR__ . '/controllers/brand_controller.php';
+require_once __DIR__ . '../settings/core.php';
+require_once __DIR__ . '../controllers/category_controller.php';
+require_once __DIR__ . '../controllers/brand_controller.php';
 
 
 ini_set('display_errors', 1);
