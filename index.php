@@ -43,7 +43,7 @@ require_once __DIR__.'/settings/core.php';
 		<ul class="navbar-nav ms-auto align-items-center">
 
 			<!-- Always visible -->
-			<li class="nav-item"><a href="view/all_product.php" class="nav-link">All Products</a></li>
+			<li class="nav-item"><a href="View/all_product.php" class="nav-link">All Products</a></li>
 
 			<!-- Not logged in -->
 			<?php if (!isLoggedIn()): ?>
@@ -87,8 +87,8 @@ require_once __DIR__.'/settings/core.php';
 		<?php endif; ?>
 	</p>
 
-	<a href="view/all_product.php" class="btn btn-primary btn-lg mt-4 px-4">
-		Explore Menu 🍕
+	<a href="View/all_product.php" class="btn btn-primary btn-lg mt-4 px-4">
+		Explore Products 🍕
 	</a>
 </div>
 
