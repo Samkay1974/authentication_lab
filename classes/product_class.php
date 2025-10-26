@@ -16,7 +16,6 @@ class Product extends db_connection {
         $result = $stmt->execute();
         $stmt->close();
 
-        // Return the newly inserted product ID (useful for image folder naming)
         return $result ? $db->insert_id : false;
     }
 
