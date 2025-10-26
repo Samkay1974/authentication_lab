@@ -53,6 +53,6 @@ $brands = get_all_brands_ctr(isset($_SESSION['customer_id']) ? $_SESSION['custom
   </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="js/store_products.js"></script>
+  <script src="../js/store_products.js"></script>
 </body>
 </html>
