@@ -24,7 +24,7 @@ $brands = get_all_brands_ctr(isset($_SESSION['customer_id']) ? $_SESSION['custom
 </head>
 <style>
   body {
-    background: #f8f9fa;
+    background-color: #fff8f0;
   }
   .hero p {
     font-size: 18px;
