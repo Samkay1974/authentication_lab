@@ -14,7 +14,7 @@ if (!$product) {
   <meta charset="utf-8">
   <title><?= htmlspecialchars($product['product_title']) ?> - Product</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/product_store.css">
+  <link rel="stylesheet" href="../css/product_store.css">
   <style>
     .single-img { width:100%; height:420px; object-fit:cover; border-radius:8px; }
     .meta { color:#6c757d; }

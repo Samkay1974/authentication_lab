@@ -12,7 +12,7 @@ if ($q !== '') {
   <meta charset="utf-8">
   <title>Search results for "<?= htmlspecialchars($q) ?>"</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/product_store.css">
+  <link rel="stylesheet" href="../css/product_store.css">
 </head>
 <body class="bg-light">
   <div class="container py-4">
