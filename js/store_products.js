@@ -18,14 +18,14 @@ $(function () {
       const card = `
       <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
         <div class="store-card">
-          <a href="../view/single_product.php?id=${p.product_id}" class="img-link"><img src="${img}" alt="${escapeHtml(p.product_title)}" class="store-img"></a>
+          <a href="../View/single_product.php?id=${p.product_id}" class="img-link"><img src="${img}" alt="${escapeHtml(p.product_title)}" class="store-img"></a>
           <div class="store-body">
             <div class="store-meta"><small class="text-muted">${escapeHtml(p.brand_name || '')} • ${escapeHtml(p.cat_name || '')}</small></div>
-            <h5 class="store-title"><a href="../view/single_product.php?id=${p.product_id}">${escapeHtml(p.product_title)}</a></h5>
+            <h5 class="store-title"><a href="../View/single_product.php?id=${p.product_id}">${escapeHtml(p.product_title)}</a></h5>
             <div class="store-price">₵ ${Number(p.product_price).toFixed(2)}</div>
             <div class="d-flex justify-content-between mt-2">
               <a href="#" class="btn btn-sm btn-outline-primary">Add to Cart</a>
-              <a href="../view/single_product.php?id=${p.product_id}" class="btn btn-sm btn-primary">View</a>
+              <a href="../View/single_product.php?id=${p.product_id}" class="btn btn-sm btn-primary">View</a>
             </div>
           </div>
         </div>
