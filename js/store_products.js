@@ -40,7 +40,7 @@ $(function () {
   }
 
   function fetchList(page = 1) {
-    $.getJSON('actions/product_actions.php', { action: 'list', limit: pageSize, page }, function (res) {
+    $.getJSON('../actions/product_actions.php', { action: 'list', limit: pageSize, page }, function (res) {
       if (res.status === 'success') {
         renderProducts(res.products);
         // TODO: build pagination from res.page (server could supply total count in a later step)
@@ -49,19 +49,19 @@ $(function () {
   }
 
   function doSearch(q) {
-    $.getJSON('actions/product_actions.php', { action: 'search', q, limit: pageSize }, function (res) {
+    $.getJSON('../actions/product_actions.php', { action: 'search', q, limit: pageSize }, function (res) {
       if (res.status === 'success') renderProducts(res.products);
     });
   }
 
   function filterByCategory(cat) {
-    $.getJSON('actions/product_actions.php', { action: 'filter_cat', cat_id: cat, limit: pageSize }, function (res) {
+    $.getJSON('..actions/product_actions.php', { action: 'filter_cat', cat_id: cat, limit: pageSize }, function (res) {
       if (res.status === 'success') renderProducts(res.products);
     });
   }
 
   function filterByBrand(brand) {
-    $.getJSON('actions/product_actions.php', { action: 'filter_brand', brand_id: brand, limit: pageSize }, function (res) {
+    $.getJSON('..actions/product_actions.php', { action: 'filter_brand', brand_id: brand, limit: pageSize }, function (res) {
       if (res.status === 'success') renderProducts(res.products);
     });
   }
