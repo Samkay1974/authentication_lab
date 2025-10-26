@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../classes/product_class.php';
 
+
 function add_product_ctr($cat_id, $brand_id, $title, $price, $desc, $image, $keywords) {
     $product = new Product();
     return $product->add_product($cat_id, $brand_id, $title, $price, $desc, $image, $keywords);
@@ -31,4 +32,32 @@ function get_single_product_ctr($id) {
     $product = new Product();
     return $product->get_single_product($id);
 }
+
+function view_all_products_ctr($limit = 0, $offset = 0) {
+    $p = new Product();
+    return $p->view_all_products($limit, $offset);
+}
+
+function search_products_ctr($query, $limit = 0, $offset = 0) {
+    $p = new Product();
+    return $p->search_products($query, $limit, $offset);
+}
+
+function filter_products_by_category_ctr($cat_id, $limit = 0, $offset = 0) {
+    $p = new Product();
+    return $p->filter_products_by_category($cat_id, $limit, $offset);
+}
+
+function filter_products_by_brand_ctr($brand_id, $limit = 0, $offset = 0) {
+    $p = new Product();
+    return $p->filter_products_by_brand($brand_id, $limit, $offset);
+}
+
+function view_single_product_ctr($id) {
+    $p = new Product();
+    return $p->view_single_product($id);
+}
+
+
+
 ?>
