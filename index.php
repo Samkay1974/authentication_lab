@@ -66,11 +66,7 @@ require_once __DIR__.'/settings/core.php';
 
 			<?php endif; ?>
 		</ul>
-
-		<!-- ✅ Always visible search -->
-		<form class="d-flex ms-3" action="product_search_result.php" method="GET">
-			<input class="form-control" type="search" name="q" placeholder="Search pizza..." required>
-		</form>
+		
 	</div>
 </nav>
 
