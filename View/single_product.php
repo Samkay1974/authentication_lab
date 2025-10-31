@@ -26,7 +26,7 @@ if (!$product) {
     <a href="all_product.php" class="btn btn-link">← Back to all products</a>
     <div class="row g-4 mt-2">
       <div class="col-md-6">
-        <img src="<?= $product['product_image'] ?: 'images/default_pizza.png' ?>" alt="" class="single-img">
+        <img src="../<?= htmlspecialchars($product['product_image']) ?>" alt="Product Image" class="single-img">
       </div>
       <div class="col-md-6">
         <h1><?= htmlspecialchars($product['product_title']) ?></h1>
