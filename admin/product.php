@@ -12,8 +12,8 @@ if (!isLoggedIn() || !isAdmin()) {
 
 $user_id = $_SESSION['customer_id'];
 $products = get_products_by_user_ctr($user_id);
-$categories = get_categories_by_user_ctr($user_id);
-$brands = get_brands_by_user_ctr($user_id);
+$categories = get_all_categories_ctr();
+$brands = get_all_brands_ctr();
 
 ?>
 

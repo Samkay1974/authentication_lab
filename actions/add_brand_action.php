@@ -35,6 +35,8 @@ if ($result) {
     echo json_encode(["status" => "success", "message" => "Brand added successfully"]);
 } else {
     echo json_encode(["status" => "error", "message" => "Brand already exists or could not be added"]);
+    exit;
 }
+
 
 

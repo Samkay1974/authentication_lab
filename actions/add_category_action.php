@@ -43,6 +43,7 @@ if ($result) {
         "status" => "error",
         "message" => "Category could not be added. It may already exist."
     ]);
+    exit;
 }
 
 $existing = get_category_by_name_ctr($name);
@@ -51,7 +52,8 @@ if ($existing) {
         "status" => "error",
         "message" => "This category already exists!"
     ]);
-    exit;
+     exit;
+   
 }
 
 $ok = add_category_ctr($name, $user_id);
