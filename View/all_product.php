@@ -22,15 +22,6 @@ $brands = get_all_brands_ctr(isset($_SESSION['customer_id']) ? $_SESSION['custom
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/product_store.css">
 </head>
-<style>
-  body {
-    background-color: #fff8f0;
-  }
-  .hero p {
-    font-size: 18px;
-    font-family: 'Times New Roman', serif;
-  }
-</style>
 <body class="bg-light">
   <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
