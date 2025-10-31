@@ -22,10 +22,11 @@ $brands = get_all_brands_ctr(isset($_SESSION['customer_id']) ? $_SESSION['custom
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/product_store.css">
 </head>
+
 <body class="bg-light">
   <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <a style="top: 20px;" href="../index.php" class="btn btn-outline-secondary">Back</a>
+        <a style="background: #fff8f0; position: absolute; top: 20px; right: 20px;" href="../index.php" class="btn btn-outline-secondary">Back</a>
       <h2>All Products</h2>
       <div class="d-flex gap-2">
         <input id="productSearch" class="form-control" style="min-width:240px" placeholder="Search products...">
