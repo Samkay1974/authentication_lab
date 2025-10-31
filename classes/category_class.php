@@ -103,4 +103,19 @@ class Category extends db_connection
 
         return $result;
     }
+
+
+    public function get_category_by_name($name) {
+        $db = $this->db_conn();
+        $stmt = $db->prepare("SELECT * FROM categories WHERE cat_name = ?");
+        if (!$stmt) {
+            return false;
+        }
+        $stmt->bind_param("s", $name);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $category = $result->fetch_assoc();
+        $stmt->close();
+        return $category;
+    }
 }

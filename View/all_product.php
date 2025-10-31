@@ -11,8 +11,8 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 
-$categories = get_all_categories_ctr(isset($_SESSION['customer_id']) ? $_SESSION['customer_id'] : 0);
-$brands = get_all_brands_ctr(isset($_SESSION['customer_id']) ? $_SESSION['customer_id'] : 0);
+$categories = get_all_categories_ctr();
+$brands = get_all_brands_ctr();
 ?>
 <!doctype html>
 <html>

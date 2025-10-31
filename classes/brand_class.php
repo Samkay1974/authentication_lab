@@ -96,4 +96,15 @@ public function get_all_brands() {
         $stmt->close();
         return $ok;
     }
+    public function get_brand_by_name($name) {
+        $db = $this->db_conn();
+        $stmt = $db->prepare("SELECT * FROM brands WHERE brand_name = ?");
+        if (!$stmt) return false;
+        $stmt->bind_param("s", $name);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $brand = $result->fetch_assoc();
+        $stmt->close();
+        return $brand;
+    }
 }

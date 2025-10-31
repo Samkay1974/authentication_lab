@@ -42,3 +42,9 @@ function delete_category_ctr($user_id, $category_id)
     $category = new Category();
     return $category->delete_category($user_id, $category_id);
 }
+
+function get_category_by_name_ctr($name) {
+    $cat = new Category();
+    return $cat->get_category_by_name($name);
+}
+

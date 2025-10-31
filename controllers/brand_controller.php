@@ -29,3 +29,7 @@ function delete_brand_ctr($user_id, $brand_id)
     $brand = new Brand();
     return $brand->delete_brand($user_id, $brand_id);
 }
+function get_brand_by_name_ctr($name) {
+    $brand = new Brand();
+    return $brand->get_brand_by_name($name);
+}

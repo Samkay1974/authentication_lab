@@ -28,6 +28,7 @@ if (empty($_POST['cat_name'])) {
 
 $user_id = $_SESSION['customer_id'];
 $category_name = trim($_POST['cat_name']);
+$name = trim($_POST['cat_name']);
 
 
 $result = add_category_ctr($user_id, $category_name);
@@ -43,4 +44,17 @@ if ($result) {
         "message" => "Category could not be added. It may already exist."
     ]);
 }
+
+$existing = get_category_by_name_ctr($name);
+if ($existing) {
+    echo json_encode([
+        "status" => "error",
+        "message" => "This category already exists!"
+    ]);
+    exit;
+}
+
+$ok = add_category_ctr($name, $user_id);
+
+
 ?>
