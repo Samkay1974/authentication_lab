@@ -19,10 +19,11 @@ function get_categories_by_user_ctr($user_id)
     $category = new Category();
     return $category->get_categories_by_user($user_id);
 }
-function get_all_categories_ctr($user_id) {
+function get_all_categories_ctr() {
     $category = new Category();
-    return $category->get_categories_by_user($user_id);
+    return $category->get_all_categories();
 }
+
 
 /**
  * Update category (controller)

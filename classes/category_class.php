@@ -53,6 +53,18 @@ class Category extends db_connection
         $stmt->close();
         return $categories;
     }
+    public function get_all_categories() {
+        $db = $this->db_conn();
+        $sql = "SELECT * FROM categories ORDER BY cat_name ASC";
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $rows = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+        $stmt->close();
+        return $rows;
+    }
+
+
 
     /**
      * Update a category name

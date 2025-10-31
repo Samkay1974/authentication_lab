@@ -48,6 +48,18 @@ class Brand extends db_connection
         return $brands;
     }
 
+public function get_all_brands() {
+    $db = $this->db_conn();
+    $sql = "SELECT * FROM brands ORDER BY brand_name ASC";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $rows = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+    $stmt->close();
+    return $rows;
+}
+
+
     public function update_brand($user_id, $brand_id, $brand_name)
     {
         $db = $this->db_conn();

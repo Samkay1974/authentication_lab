@@ -12,10 +12,11 @@ function get_brands_by_user_ctr($user_id)
     $brand = new Brand();
     return $brand->get_brands_by_user($user_id);
 }
-function get_all_brands_ctr($user_id) {
+function get_all_brands_ctr() {
     $brand = new Brand();
-    return $brand->get_brands_by_user($user_id);
+    return $brand->get_all_brands();
 }
+
 
 function update_brand_ctr($user_id, $brand_id, $brand_name)
 {
