@@ -65,7 +65,7 @@ $(document).ready(function () {
             },
             error: function (xhr, status, error) {
                 console.error("Add error:", xhr.responseText);
-                Swal.fire("Error", "Could not add category.", "error");
+                Swal.fire("Error", "Could not add category, Category may already exist.", "error");
             }
         });
     });
