@@ -16,11 +16,7 @@ if ($brand_name === '') {
     exit;
 }
 
-$user_id = $_SESSION['customer_id'];
-$result = add_brand_ctr($user_id, $brand_name);
-$name = trim($_POST['brand_name']);
-
-$existing = get_brand_by_name_ctr($name);
+$existing = get_brand_by_name_ctr($brand_name);
 if ($existing) {
     echo json_encode([
         "status" => "error",
@@ -28,6 +24,12 @@ if ($existing) {
     ]);
     exit;
 }
+
+
+$user_id = $_SESSION['customer_id'];
+$result = add_brand_ctr($user_id, $brand_name);
+
+
 
 $ok = add_brand_ctr($name, $user_id);
 
