@@ -5,7 +5,7 @@ header('Content-Type: application/json');
 require_once __DIR__ . '/../settings/core.php';
 require_once __DIR__ . '/../controllers/category_controller.php';
 
-// Ensuring user is logged in
+// Ensure user is logged in
 if (!isLoggedIn()) {
     echo json_encode([
         "status" => "error",
@@ -14,10 +14,7 @@ if (!isLoggedIn()) {
     exit;
 }
 
-
-file_put_contents('debug_post.txt', print_r($_POST, true));
-
-
+// Validate input
 if (empty($_POST['cat_name'])) {
     echo json_encode([
         "status" => "error",
@@ -28,7 +25,16 @@ if (empty($_POST['cat_name'])) {
 
 $user_id = $_SESSION['customer_id'];
 $category_name = trim($_POST['cat_name']);
-$name = trim($_POST['cat_name']);
+
+
+$existing = get_category_by_name_ctr($category_name);
+if ($existing) {
+    echo json_encode([
+        "status" => "error",
+        "message" => "This category already exists! You can use it instead of creating another."
+    ]);
+    exit;
+}
 
 
 $result = add_category_ctr($user_id, $category_name);
@@ -41,22 +47,7 @@ if ($result) {
 } else {
     echo json_encode([
         "status" => "error",
-        "message" => "Category could not be added. It may already exist."
+        "message" => "Category could not be added due to a server error."
     ]);
-    exit;
 }
-
-$existing = get_category_by_name_ctr($name);
-if ($existing) {
-    echo json_encode([
-        "status" => "error",
-        "message" => "This category already exists!"
-    ]);
-     exit;
-   
-}
-
-$ok = add_category_ctr($name, $user_id);
-
-
 ?>
