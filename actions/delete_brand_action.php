@@ -9,45 +9,33 @@ require_once __DIR__ . '/../controllers/brand_controller.php';
 if (!isLoggedIn()) {
     echo json_encode([
         "status" => "error",
-        "message" => "You must be logged in to add a brand."
+        "message" => "You must be logged in to delete a category."
     ]);
     exit;
 }
 
-// Validate input
-if (empty($_POST['brand_name'])) {
+if (empty($_POST['brand_id'])) {
     echo json_encode([
         "status" => "error",
-        "message" => "Please provide a brand name."
+        "message" => "Brand ID is required."
     ]);
     exit;
 }
 
 $user_id = $_SESSION['customer_id'];
-$brand_name = trim($_POST['brand_name']);
+$brand_id = intval($_POST['brand_id']);
 
-
-$existing = get_brand_by_name_ctr($brand_name);
-if ($existing) {
-    echo json_encode([
-        "status" => "error",
-        "message" => "This brand already exists! You can use it instead of creating another."
-    ]);
-    exit;
-}
-
-
-$result = add_brand_ctr($user_id, $brand_name);
+$result = delete_brand_ctr($user_id, $brand_id);
 
 if ($result) {
     echo json_encode([
         "status" => "success",
-        "message" => "Brand added successfully."
+        "message" => "Brand deleted successfully."
     ]);
 } else {
     echo json_encode([
         "status" => "error",
-        "message" => "Brand could not be added due to a server error."
+        "message" => "Brand could not be deleted."
     ]);
 }
 ?>
