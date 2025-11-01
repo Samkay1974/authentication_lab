@@ -58,7 +58,10 @@ $(document).ready(function () {
                     $("#create-brand-form")[0].reset();
                     loadBrands();
                 } else {
-                    Swal.fire("Error", res.message, "error");
+                    Swal.fire("Error", response.message, "error").then(() => {
+                        $("#addCategoryForm")[0].reset(); // clear form
+                        history.replaceState(null, null, location.href);
+                    });
                 }
             },
             error: function (xhr) {
