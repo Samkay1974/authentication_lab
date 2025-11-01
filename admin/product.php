@@ -4,7 +4,7 @@ require_once __DIR__ . '/../controllers/product_controller.php';
 require_once __DIR__ . '/../controllers/category_controller.php';
 require_once __DIR__ . '/../controllers/brand_controller.php';
 
-// authorization check
+// Authorization check
 if (!isLoggedIn() || !isAdmin()) {
     header("Location: ../login/login.php");
     exit;
@@ -15,6 +15,8 @@ $products = get_products_by_user_ctr($user_id);
 $categories = get_all_categories_ctr();
 $brands = get_all_brands_ctr();
 
+// Base URL for hosted environment
+$baseUrl = "http://169.239.251.102:442/~samuel.ninson/";
 ?>
 
 <!DOCTYPE html>
@@ -34,13 +36,14 @@ $brands = get_all_brands_ctr();
     <?php if (isLoggedIn()): ?>
         <h2 class="mb-4"><?= htmlspecialchars($_SESSION['customer_name']) ?>'s Product Manager</h2>
         <a style="position: absolute; top: 20px; right: 20px;" href="../index.php" class="btn btn-outline-secondary">Back</a>
-				<?php endif; ?>
-    <div>
-    <button id="showAddFormBtn" type="button" class="btn btn-success">+ Add New Product</button>
+    <?php endif; ?>
+
+    <div class="mb-4">
+        <button id="showAddFormBtn" type="button" class="btn btn-success">+ Add New Product</button>
     </div>
 
     <!-- ADD PRODUCT FORM -->
-    <div id="addProductForm" class="card mb-5" style="display: <?php echo empty($products) ? 'block' : 'none'; ?>;">
+    <div id="addProductForm" class="card mb-5" style="display: <?= empty($products) ? 'block' : 'none'; ?>;">
         <div class="card-body">
             <h4 class="text-center mb-3">Add New Product</h4>
             <form id="productForm" enctype="multipart/form-data">
@@ -112,29 +115,30 @@ $brands = get_all_brands_ctr();
                     echo "<div class='row g-4'>";
 
                     foreach ($cat_products as $p) {
-                        $image = !empty($p['product_image']) ? $p['product_image'] : '../images/default_pizza.png';
+                        // ✅ Build proper full image path
+                        $imagePath = !empty($p['product_image'])
+                            ? $baseUrl . $p['product_image']
+                            : $baseUrl . "uploads/default_pizza.png";
 
                         echo "
                         <div class='col-md-3' data-product-card='{$p['product_id']}'>
                             <div class='product-card shadow-sm'>
-                                <img src='$image' class='product-img' alt='Product Image'>
+                                <img src='$imagePath' class='product-img' alt='Product Image'>
                                 <div class='product-info'>
                                     <h5 class='product-title'>" . htmlspecialchars($p['product_title']) . "</h5>
                                     <p class='text-muted mb-1'><strong>Brand:</strong> " . htmlspecialchars($p['brand_name']) . "</p>
                                     <p class='product-price'>₵" . number_format($p['product_price'], 2) . "</p>
                                     <div class='mt-2 d-flex justify-content-between'>
-                                  
-                                            <button 
-                                                class='btn btn-sm btn-outline-primary editBtn'
-                                                data-id='{$p['product_id']}'
-                                                data-title='" . htmlspecialchars($p['product_title'], ENT_QUOTES) . "'
-                                                data-price='{$p['product_price']}'
-                                                data-desc='" . htmlspecialchars($p['product_desc'], ENT_QUOTES) . "'
-                                                data-keywords='" . htmlspecialchars($p['product_keywords'], ENT_QUOTES) . "'
-                                                data-cat='{$p['product_cat']}'
-                                                data-brand='{$p['product_brand']}'>Edit
-                                            </button>
-        
+                                        <button 
+                                            class='btn btn-sm btn-outline-primary editBtn'
+                                            data-id='{$p['product_id']}'
+                                            data-title='" . htmlspecialchars($p['product_title'], ENT_QUOTES) . "'
+                                            data-price='{$p['product_price']}'
+                                            data-desc='" . htmlspecialchars($p['product_desc'], ENT_QUOTES) . "'
+                                            data-keywords='" . htmlspecialchars($p['product_keywords'], ENT_QUOTES) . "'
+                                            data-cat='{$p['product_cat']}'
+                                            data-brand='{$p['product_brand']}'>Edit
+                                        </button>
                                         <button class='btn btn-sm btn-outline-danger deleteBtn' data-id='{$p['product_id']}'>Delete</button>
                                     </div>
                                 </div>
@@ -149,7 +153,6 @@ $brands = get_all_brands_ctr();
         ?>
     </div>
 </div>
-
 
 <!-- EDIT PRODUCT MODAL -->
 <div class="modal fade" id="editProductModal" tabindex="-1" aria-hidden="true">
@@ -219,6 +222,7 @@ $brands = get_all_brands_ctr();
     </form>
   </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../js/product.js"></script>
 </body>
