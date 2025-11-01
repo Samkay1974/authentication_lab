@@ -13,18 +13,26 @@ $(function () {
       $grid.html('<div class="col-12"><div class="alert alert-info text-center">No products found.</div></div>');
       return;
     }
+
     products.forEach(p => {
-      const img = p.product_image 
-  ? `${BASE_URL}${p.product_image}` 
-  : `${BASE_URL}uploads/default_pizza.png`;
+      // ✅ Use full URL for image (BASE_URL comes from PHP)
+      const img = p.product_image
+        ? `${BASE_URL}${p.product_image}`
+        : `${BASE_URL}uploads/default_pizza.png`;
 
       const card = `
       <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-        <div class="store-card">
-          <a href="../View/single_product.php?id=${p.product_id}" class="img-link"><img src="${img}" alt="${escapeHtml(p.product_title)}" class="store-img"></a>
+        <div class="store-card shadow-sm">
+          <a href="../View/single_product.php?id=${p.product_id}" class="img-link">
+            <img src="${img}" alt="${escapeHtml(p.product_title)}" class="store-img">
+          </a>
           <div class="store-body">
-            <div class="store-meta"><small class="text-muted">${escapeHtml(p.brand_name || '')} • ${escapeHtml(p.cat_name || '')}</small></div>
-            <h5 class="store-title"><a href="../View/single_product.php?id=${p.product_id}">${escapeHtml(p.product_title)}</a></h5>
+            <div class="store-meta">
+              <small class="text-muted">${escapeHtml(p.brand_name || '')} • ${escapeHtml(p.cat_name || '')}</small>
+            </div>
+            <h5 class="store-title">
+              <a href="../View/single_product.php?id=${p.product_id}">${escapeHtml(p.product_title)}</a>
+            </h5>
             <div class="store-price">₵ ${Number(p.product_price).toFixed(2)}</div>
             <div class="d-flex justify-content-between mt-2">
               <a href="#" class="btn btn-sm btn-outline-primary">Add to Cart</a>
@@ -42,34 +50,39 @@ $(function () {
     return $('<div>').text(str).html();
   }
 
+  // ✅ Fetch products
   function fetchList(page = 1) {
     $.getJSON('../actions/product_actions.php', { action: 'list', limit: pageSize, page }, function (res) {
       if (res.status === 'success') {
         renderProducts(res.products);
-        // TODO: build pagination from res.page (server could supply total count in a later step)
+      } else {
+        console.error('Error loading products:', res.message);
       }
     });
   }
 
+  // ✅ Search
   function doSearch(q) {
     $.getJSON('../actions/product_actions.php', { action: 'search', q, limit: pageSize }, function (res) {
       if (res.status === 'success') renderProducts(res.products);
     });
   }
 
+  // ✅ Fixed file path (was `..actions` before)
   function filterByCategory(cat) {
-    $.getJSON('..actions/product_actions.php', { action: 'filter_cat', cat_id: cat, limit: pageSize }, function (res) {
+    $.getJSON('../actions/product_actions.php', { action: 'filter_cat', cat_id: cat, limit: pageSize }, function (res) {
       if (res.status === 'success') renderProducts(res.products);
     });
   }
 
+  // ✅ Fixed file path (was `..actions` before)
   function filterByBrand(brand) {
-    $.getJSON('..actions/product_actions.php', { action: 'filter_brand', brand_id: brand, limit: pageSize }, function (res) {
+    $.getJSON('../actions/product_actions.php', { action: 'filter_brand', brand_id: brand, limit: pageSize }, function (res) {
       if (res.status === 'success') renderProducts(res.products);
     });
   }
 
-  // Debounce search
+  // ✅ Debounced search input
   let timer = null;
   $search.on('input', function () {
     clearTimeout(timer);
@@ -80,6 +93,7 @@ $(function () {
     }, 400);
   });
 
+  // ✅ Category & brand filters
   $catFilter.on('change', function () {
     const v = $(this).val();
     if (!v) fetchList(); else filterByCategory(v);
@@ -90,6 +104,6 @@ $(function () {
     if (!v) fetchList(); else filterByBrand(v);
   });
 
-  // initial load
+  // ✅ Initial load
   fetchList();
 });
