@@ -10,7 +10,6 @@ error_reporting(E_ALL);
 $categories = get_all_categories_ctr();
 $brands = get_all_brands_ctr();
 
-// ✅ Define base URL for image access
 $baseUrl = "http://169.239.251.102:442/~samuel.ninson/";
 ?>
 <!doctype html>
@@ -20,6 +19,9 @@ $baseUrl = "http://169.239.251.102:442/~samuel.ninson/";
   <title>All Products - Easy Pizza</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/product_store.css">
+  <script>
+  const BASE_URL = "http://169.239.251.102:442/~samuel.ninson/";
+</script>
 </head>
 
 <body class="bg-light">

@@ -17,8 +17,8 @@ $(function () {
     products.forEach(p => {
       // ✅ Use full URL for image (BASE_URL comes from PHP)
       const img = p.product_image
-        ? `${BASE_URL}${p.product_image}`
-        : `${BASE_URL}uploads/default_pizza.png`;
+  ? `${BASE_URL}${p.product_image}`
+  : `${BASE_URL}uploads/default_pizza.png`;
 
       const card = `
       <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
