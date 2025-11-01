@@ -14,7 +14,10 @@ $(function () {
       return;
     }
     products.forEach(p => {
-      const img = p.product_image ? p.product_image : 'images/default_pizza.png';
+      const img = p.product_image 
+  ? `${BASE_URL}${p.product_image}` 
+  : `${BASE_URL}uploads/default_pizza.png`;
+
       const card = `
       <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
         <div class="store-card">

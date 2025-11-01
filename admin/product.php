@@ -15,7 +15,6 @@ $products = get_products_by_user_ctr($user_id);
 $categories = get_all_categories_ctr();
 $brands = get_all_brands_ctr();
 
-// Base URL for hosted environment
 $baseUrl = "http://169.239.251.102:442/~samuel.ninson/";
 ?>
 

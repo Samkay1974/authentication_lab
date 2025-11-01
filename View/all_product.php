@@ -1,18 +1,17 @@
-
-
 <?php
 require_once __DIR__ . '/../settings/core.php';
 require_once __DIR__ . '/../controllers/category_controller.php';
 require_once __DIR__ . '/../controllers/brand_controller.php';
 
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-
 $categories = get_all_categories_ctr();
 $brands = get_all_brands_ctr();
+
+// ✅ Define base URL for image access
+$baseUrl = "http://169.239.251.102:442/~samuel.ninson/";
 ?>
 <!doctype html>
 <html>
@@ -26,7 +25,7 @@ $brands = get_all_brands_ctr();
 <body class="bg-light">
   <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <a style="position:fixed; top: 20px; right: 20px;" href="../index.php" class="btn btn-outline-secondary">Back</a>
+      <a style="position:fixed; top: 20px; right: 20px;" href="../index.php" class="btn btn-outline-secondary">Back</a>
       <h2>All Products</h2>
       <div class="d-flex gap-2">
         <input id="productSearch" class="form-control" style="min-width:240px" placeholder="Search products...">
@@ -49,10 +48,13 @@ $brands = get_all_brands_ctr();
       <!-- cards injected by js -->
     </div>
 
-
-
     <div id="productPagination" class="mt-4"></div>
   </div>
+
+  <script>
+    // ✅ Make base URL accessible to JS
+    const BASE_URL = "<?= $baseUrl ?>";
+  </script>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="../js/store_products.js"></script>
