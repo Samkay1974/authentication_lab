@@ -10,12 +10,15 @@ if (!isLoggedIn() || !isAdmin()) {
     exit;
 }
 
+$user_id = $_SESSION['customer_id'];
 $brand_name = trim($_POST['brand_name'] ?? '');
+
 if ($brand_name === '') {
     echo json_encode(["status" => "error", "message" => "Brand name required"]);
     exit;
 }
 
+// Check if brand already exists (for any user)
 $existing = get_brand_by_name_ctr($brand_name);
 if ($existing) {
     echo json_encode([
@@ -25,19 +28,16 @@ if ($existing) {
     exit;
 }
 
-
-$user_id = $_SESSION['customer_id'];
 $result = add_brand_ctr($user_id, $brand_name);
 
-
-
-$ok = add_brand_ctr($name, $user_id);
-
 if ($result) {
-    echo json_encode(["status" => "success", "message" => "Brand added successfully"]);
+    echo json_encode([
+        "status" => "success",
+        "message" => "Brand added successfully."
+    ]);
 } else {
-    echo json_encode(["status" => "error", "message" => "Brand already exists or could not be added"]);
+    echo json_encode([
+        "status" => "error",
+        "message" => "Failed to add brand. Please try again."
+    ]);
 }
-
-
-
