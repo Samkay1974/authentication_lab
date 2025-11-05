@@ -38,6 +38,6 @@ if ($result) {
 } else {
     echo json_encode([
         "status" => "error",
-        "message" => "Failed to add brand. Please try again."
+        "message" => "Failed to add brand!."
     ]);
 }
