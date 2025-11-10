@@ -1,0 +1,65 @@
+/* Shared custom theme for authentication_lab */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+:root{
+  --accent: #D35400; /* warm orange */
+  --muted: #f7f2ee;
+  --accent-soft: #D19C97;
+  --card-radius: 12px;
+  --container-max: 1100px;
+}
+
+*{box-sizing:border-box}
+body{
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background: linear-gradient(180deg, #fff8f0 0%, #fffaf6 40%);
+  color: #222;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  min-height:100vh;
+  margin:0;
+}
+
+/* Page container */
+.site-container{max-width:var(--container-max);margin:0 auto;padding:20px}
+
+/* Cards */
+.card.custom-card{border:none;border-radius:var(--card-radius);box-shadow:0 10px 30px rgba(41,50,60,0.06);overflow:hidden}
+.card.custom-card .card-header{background:var(--accent-soft);color:#fff;border-bottom:none}
+
+/* Buttons */
+.btn-accent{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn-accent:hover{background:#c34800;border-color:#c34800}
+
+/* Forms */
+.form-control{border-radius:8px;padding:10px 12px;border:1px solid rgba(34,40,49,0.08)}
+.form-label i{color:var(--accent-soft);margin-left:6px}
+
+/* Login/Register layout tweaks */
+.auth-outer{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px}
+.auth-card{max-width:520px;width:100%}
+
+/* Hero */
+.hero{padding:120px 20px;text-align:center}
+.hero h1{font-size:48px;line-height:1.02;color:var(--accent);font-weight:700;margin-bottom:10px}
+.hero p{color:#5b5b5b;font-size:16px}
+
+/* Small utilities */
+.muted{color:#777}
+.highlight{color:var(--accent-soft)}
+
+/* Subtle input focus */
+.form-control:focus{box-shadow:0 6px 18px rgba(209,156,151,0.12);border-color:rgba(209,156,151,0.6);outline:none}
+
+/* Responsive tweaks */
+@media (max-width:576px){
+  .hero h1{font-size:32px}
+  .auth-outer{padding:20px}
+}
+
+/* Simple pulse animation for primary CTA */
+.pulse{animation:pulse 2.6s infinite}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.02)}100%{transform:scale(1)}}
+
+/* Form helper */
+.form-foot{font-size:0.95rem;color:#666;margin-top:12px}

@@ -9,24 +9,7 @@ require_once __DIR__.'/settings/core.php';
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>HomePage - PizzaHub</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-	<style>
-		body {
-			background: #fff8f0;
-		}
-		.hero {
-			padding: 120px 20px;
-		}
-		.hero h1 {
-			font-size: 70px;
-			font-weight: 800;
-			color: #d35400;
-		}
-		.hero p {
-			font-size: 18px;
-			font-family: 'Times New Roman', serif;
-		}
-	</style>
+	<link rel="stylesheet" href="css/custom_theme.css">
 </head>
 
 <body>
@@ -72,7 +55,7 @@ require_once __DIR__.'/settings/core.php';
 
 
 <!-- ✅ HERO SECTION -->
-<div class="container hero text-center">
+<div class="site-container hero text-center">
 	<h1>Welcome to PizzaHub 🍕</h1>
 
 	<p class="text-muted mt-3">
@@ -83,7 +66,7 @@ require_once __DIR__.'/settings/core.php';
 		<?php endif; ?>
 	</p>
 
-	<a href="View/all_product.php" class="btn btn-primary btn-lg mt-4 px-4">
+	<a href="View/all_product.php" class="btn btn-accent btn-lg mt-4 px-4">
 		Explore Products 🍕
 	</a>
 </div>
