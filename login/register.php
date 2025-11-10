@@ -7,20 +7,138 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/custom_theme.css">
+    <style>
+        .btn-custom {
+            background-color: brown;
+            border-color: #D19C97;
+            color: #fff;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .btn-custom:hover {
+            background-color: #b77a7a;
+            border-color: #b77a7a;
+        }
+
+        .highlight {
+            color: #D19C97;
+            transition: color 0.3s;
+        }
+        h3{background-color: #D19C97; color: white; padding: 10px; border-radius: 10px;
+
+        }
+
+        .highlight:hover {
+            color: #b77a7a;
+        }
+
+        body {
+            /* Base background color */
+            background-color: #f8f9fa;
+
+            /* Gradient-like grid using repeating-linear-gradients */
+            background-image:
+                repeating-linear-gradient(0deg,
+                    #b77a7a,
+                    #b77a7a 1px,
+                    transparent 1px,
+                    transparent 20px),
+                repeating-linear-gradient(90deg,
+                    #b77a7a,
+                    #b77a7a 1px,
+                    transparent 1px,
+                    transparent 20px),
+                linear-gradient(rgba(183, 122, 122, 0.1),
+                    rgba(183, 122, 122, 0.1));
+
+            /* Blend the gradients for a subtle overlay effect */
+            background-blend-mode: overlay;
+
+            /* Define the size of the grid */
+            background-size: 20px 20px;
+
+            /* Ensure the background covers the entire viewport */
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .register-container {
+            margin-top: 50px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: brown;
+            color: #fff;
+        }
+
+        .custom-radio .form-check-input:checked+.form-check-label::before {
+            background-color: #D19C97;
+            border-color: #D19C97;
+        }
+
+        .form-check-label {
+            position: relative;
+            padding-left: 2rem;
+            cursor: pointer;
+        }
+
+        .form-check-label::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid #D19C97;
+            border-radius: 50%;
+            background-color: #fff;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .form-check-input:focus+.form-check-label::before {
+            box-shadow: 0 0 0 0.2rem rgba(209, 156, 151, 0.5);
+        }
+
+        .animate-pulse-custom {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div class="auth-outer">
-        <div class="site-container">
-            <div class="row justify-content-center animate__animated animate__fadeInDown">
-                <div class="col-md-8 col-lg-6 auth-card">
-                    <div class="card custom-card animate__animated animate__zoomIn">
-                        <div class="card-header text-center">
-                            <h3 class="mb-0">CREATE AN ACCOUNT</h3>
-                        </div>
-                        <div class="card-body">
-                        <form method="POST" action="" class="mt-4" id="register-form" novalidate>
+    <div class="container register-container">
+        <div class="row justify-content-center animate__animated animate__fadeInDown">
+            <div class="col-md-6">
+                <div class="card animate__animated animate__zoomIn">
+                    <div class="card-header text-center highlight">
+                        <h3>CREATE AN ACCOUNT</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="" class="mt-4" id="register-form">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Enter Full Name <i class="fa fa-user"></i></label>
                                 <input type="text" class="form-control animate__animated animate__fadeInUp" id="name" name="name" required>
@@ -69,7 +187,7 @@
                                 </div>
                         
                             </div>
-                            <button type="submit" class="btn btn-accent w-100 pulse">Sign Up</button>
+                            <button type="submit" class="btn btn-custom w-100 animate-pulse-custom">Sign Up</button>
                         </form>
                     </div>
                     <div class="card-footer text-center">
