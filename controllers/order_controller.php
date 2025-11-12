@@ -35,4 +35,19 @@ function get_order_by_id_ctr($order_id) {
     $o = new Order();
     return $o->get_order_by_id($order_id);
 }
+
+function delete_order_ctr($order_id) {
+    $o = new Order();
+    return $o->delete_order($order_id);
+}
+
+function get_orders_for_user_ctr($user_id) {
+    $o = new Order();
+    return $o->get_orders_for_user($user_id);
+}
+
+function get_order_details_for_user_ctr($order_id, $user_id) {
+    $o = new Order();
+    return $o->get_order_details_for_user($order_id, $user_id);
+}
 ?>

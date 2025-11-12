@@ -35,10 +35,15 @@ function _url($path) {
             <li class="nav-item"><a href="<?= _url('admin/brand.php') ?>" class="nav-link">Brand</a></li>
             <li class="nav-item"><a href="<?= _url('admin/product.php') ?>" class="nav-link">Manage Products</a></li>
             <?php
-              // show orders badge for admins
+              // show orders badge for admins (superadmin sees all orders; other admins/sellers see orders for their products)
               require_once __DIR__ . '/../controllers/order_controller.php';
               $ordersCount = 0;
-              try { $ordersCount = count_orders_ctr(); } catch (Exception $ex) { $ordersCount = 0; }
+              $current_user = isset($_SESSION['customer_id']) ? $_SESSION['customer_id'] : 0;
+              if (isset($_SESSION['user_role']) && intval($_SESSION['user_role']) === 1) {
+                try { $ordersCount = count_orders_ctr(); } catch (Exception $ex) { $ordersCount = 0; }
+              } else {
+                try { $orders = get_orders_for_user_ctr($current_user); $ordersCount = is_array($orders) ? count($orders) : 0; } catch (Exception $ex) { $ordersCount = 0; }
+              }
             ?>
             <li class="nav-item d-flex align-items-center me-2">
               <a href="<?= _url('admin/orders.php') ?>" class="nav-link position-relative">

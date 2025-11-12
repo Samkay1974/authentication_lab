@@ -1,9 +1,21 @@
 <?php
-require_once __DIR__ . '/../settings/core.php';
+$require_path = __DIR__ . '/../settings/core.php';
+require_once $require_path;
+// show errors when loading admin pages to surface problems during development
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 if (!function_exists('isAdmin') || !isAdmin()) header('Location: ../login/login.php');
 $root = '..';
 require_once __DIR__ . '/../controllers/order_controller.php';
-$orders = get_all_orders_ctr();
+
+// show all orders for superadmin (role == 1), otherwise only orders that include this user's products
+$current_user = $_SESSION['customer_id'] ?? 0;
+$orders = [];
+if (isset($_SESSION['user_role']) && intval($_SESSION['user_role']) === 1) {
+  $orders = get_all_orders_ctr();
+} else {
+  $orders = get_orders_for_user_ctr($current_user);
+}
 ?>
 <!doctype html>
 <html>

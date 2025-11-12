@@ -48,4 +48,13 @@ if (!$emptied) {
     exit;
 }
 
-echo json_encode(["status"=>"success","message"=>"Order placed", "order_id"=>$order_id, "invoice_no"=>$invoice_no, "amount"=>$total]);
+// Optionally remove the order from admin listings now that payment is confirmed
+$deleted = false;
+try {
+    $deleted = delete_order_ctr($order_id);
+} catch (Exception $ex) { $deleted = false; }
+
+$resp = ["status"=>"success","message"=>"Order placed", "order_id"=>$order_id, "invoice_no"=>$invoice_no, "amount"=>$total];
+if ($deleted) $resp['order_removed'] = true; else $resp['order_removed'] = false;
+
+echo json_encode($resp);

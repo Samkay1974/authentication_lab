@@ -4,8 +4,17 @@ if (!function_exists('isAdmin') || !isAdmin()) header('Location: ../login/login.
 $root = '..';
 require_once __DIR__ . '/../controllers/order_controller.php';
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$current_user = $_SESSION['customer_id'] ?? 0;
 $order = $id ? get_order_by_id_ctr($id) : null;
-$items = $id ? get_order_details_ctr($id) : [];
+// show only items that belong to this admin/seller; superadmin sees all items
+$items = [];
+if ($id) {
+  if (isset($_SESSION['user_role']) && intval($_SESSION['user_role']) === 1) {
+    $items = get_order_details_ctr($id);
+  } else {
+    $items = get_order_details_for_user_ctr($id, $current_user);
+  }
+}
 ?>
 <!doctype html>
 <html>
