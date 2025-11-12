@@ -12,7 +12,11 @@ $(function(){
     tbody.empty();
     if (!items.length) tbody.append('<tr><td colspan="5">Cart is empty</td></tr>');
     items.forEach(it => {
-      const img = it.product_image ? it.product_image : 'uploads/default_pizza.png';
+      // normalize image path: if relative (no http and not starting with ../), prefix with ../ because cart page lives in View/
+      let img = it.product_image ? it.product_image : 'uploads/default_pizza.png';
+      if (img && !img.startsWith('http') && !img.startsWith('/')) {
+        if (!img.startsWith('../')) img = '../' + img;
+      }
       tbody.append(`
         <tr>
           <td><img src="${img}" style="width:60px"></td>

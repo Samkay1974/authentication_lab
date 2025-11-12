@@ -12,7 +12,11 @@ if (!isLoggedIn()) header('Location: ../login/login.php');
 <body>
 <?php $root = '..'; require_once __DIR__ . '/../includes/header.php'; ?>
 <div class="container py-4">
-  <h2>Your Cart</h2>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <a href="all_product.php" class="btn btn-link">← Back to all products</a>
+    <h2>Your Cart</h2>
+    <div></div>
+  </div>
   <table class="table">
     <thead><tr><th>Image</th><th>Title</th><th>Price</th><th>Qty</th><th></th></tr></thead>
     <tbody id="cartBody">
@@ -22,7 +26,8 @@ if (!isLoggedIn()) header('Location: ../login/login.php');
   <button id="emptyCartBtn" class="btn btn-warning">Empty Cart</button>
   <a href="checkout.php" class="btn btn-primary">Checkout</a>
 </div>
-<script src="../js/cart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="../js/cart.js"></script>
 </body>
 </html>
