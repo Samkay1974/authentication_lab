@@ -1,7 +1,10 @@
 // js/cart.js
 $(function(){
+  // compute actions base in a root-aware way so this file works when included from / or /View/
+  const ACTIONS_BASE = (typeof window.SITE_ROOT !== 'undefined' && window.SITE_ROOT) ? (window.SITE_ROOT + '/actions/') : 'actions/';
+
   function refreshCart() {
-    $.getJSON('../actions/get_cart_action.php', function(resp){
+    $.getJSON(ACTIONS_BASE + 'get_cart_action.php', function(resp){
       if (resp.status === 'success') renderCart(resp.items);
       else $('#cartBody').html('<tr><td colspan="5">Empty cart</td></tr>');
     });
@@ -34,7 +37,7 @@ $(function(){
 
   // Expose cart count updater
   function updateCartCount() {
-    $.getJSON('../actions/get_cart_action.php', function(resp){
+    $.getJSON(ACTIONS_BASE + 'get_cart_action.php', function(resp){
       if (resp && resp.status === 'success') {
         // show distinct item count (number of rows)
         const count = Array.isArray(resp.items) ? resp.items.length : 0;
@@ -70,7 +73,7 @@ $(function(){
   $(document).on('change', '.cart-qty-input', function(){
     const pid = $(this).data('pid');
     const qty = parseInt($(this).val()) || 0;
-    $.post('../actions/update_quantity_action.php', { product_id: pid, quantity: qty }, function(resp){
+    $.post(ACTIONS_BASE + 'update_quantity_action.php', { product_id: pid, quantity: qty }, function(resp){
       if (resp.status === 'success') refreshCart(); else Swal.fire('Error', resp.message || 'Update failed','error');
     }, 'json');
   });
@@ -78,14 +81,14 @@ $(function(){
   // remove
   $(document).on('click', '.remove-cart-btn', function(){
     const pid = $(this).data('pid');
-    $.post('../actions/remove_from_cart_action.php', { product_id: pid }, function(resp){
+    $.post(ACTIONS_BASE + 'remove_from_cart_action.php', { product_id: pid }, function(resp){
       if (resp.status === 'success') refreshCart(); else Swal.fire('Error', resp.message || 'Remove failed','error');
     }, 'json');
   });
 
   // empty cart
   $(document).on('click', '#emptyCartBtn', function(){
-    $.post('../actions/empty_cart_action.php', function(resp){
+    $.post(ACTIONS_BASE + 'empty_cart_action.php', function(resp){
       if (resp.status === 'success') refreshCart(); else Swal.fire('Error', resp.message || 'Failed','error');
     }, 'json');
   });

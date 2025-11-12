@@ -46,3 +46,7 @@ function _url($path) {
     </ul>
   </div>
 </nav>
+<script>
+  // Expose site root to client scripts so relative AJAX paths work from pages in different folders
+  window.SITE_ROOT = <?= json_encode($root) ?>;
+</script>
