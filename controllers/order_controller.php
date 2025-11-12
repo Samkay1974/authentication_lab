@@ -16,38 +16,14 @@ function record_payment_ctr($order_id, $amount, $customer_id, $currency = 'GHS')
     return $o->record_payment($order_id, $amount, $customer_id, $currency);
 }
 
-function get_all_orders_ctr() {
-    $o = new Order();
-    return $o->get_all_orders();
-}
-
 function get_order_details_ctr($order_id) {
     $o = new Order();
     return $o->get_order_details($order_id);
 }
 
-function count_orders_ctr() {
+function get_orders_by_customer_ctr($customer_id, $include_items = false) {
     $o = new Order();
-    return $o->count_orders();
+    return $o->get_orders_by_customer($customer_id, $include_items);
 }
 
-function get_order_by_id_ctr($order_id) {
-    $o = new Order();
-    return $o->get_order_by_id($order_id);
-}
-
-function delete_order_ctr($order_id) {
-    $o = new Order();
-    return $o->delete_order($order_id);
-}
-
-function get_orders_for_user_ctr($user_id) {
-    $o = new Order();
-    return $o->get_orders_for_user($user_id);
-}
-
-function get_order_details_for_user_ctr($order_id, $user_id) {
-    $o = new Order();
-    return $o->get_order_details_for_user($order_id, $user_id);
-}
 ?>

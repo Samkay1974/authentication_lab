@@ -48,13 +48,26 @@ if (!$emptied) {
     exit;
 }
 
-// Optionally remove the order from admin listings now that payment is confirmed
-$deleted = false;
-try {
-    $deleted = delete_order_ctr($order_id);
-} catch (Exception $ex) { $deleted = false; }
+// Prepare items summary for the response (product, unit price, qty, subtotal)
+$order_items = [];
+foreach ($items as $it) {
+    $unit = floatval($it['product_price'] ?? 0);
+    $qty = intval($it['qty'] ?? 0);
+    if ($qty <= 0) continue;
+    $order_items[] = [
+        'product_id' => intval($it['product_id'] ?? 0),
+        'product_title' => $it['product_title'] ?? '',
+        'unit_price' => $unit,
+        'quantity' => $qty,
+        'subtotal' => $unit * $qty,
+    ];
+}
 
-$resp = ["status"=>"success","message"=>"Order placed", "order_id"=>$order_id, "invoice_no"=>$invoice_no, "amount"=>$total];
-if ($deleted) $resp['order_removed'] = true; else $resp['order_removed'] = false;
-
-echo json_encode($resp);
+echo json_encode([
+    "status"=>"success",
+    "message"=>"Order placed",
+    "order_id"=>$order_id,
+    "invoice_no"=>$invoice_no,
+    "amount"=>$total,
+    "items"=>$order_items
+]);
