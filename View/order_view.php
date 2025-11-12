@@ -1,12 +1,13 @@
 <?php
 require_once __DIR__ . '/../settings/core.php';
 if (!isLoggedIn()) header('Location: ../login/login.php');
+// this page sits in /View, set root to parent so header links work
 $root = '..';
 require_once __DIR__ . '/../controllers/order_controller.php';
 
 $customer_id = $_SESSION['customer_id'];
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-if (!$id) header('Location: orders.php');
+if (!$id) header('Location: ./orders.php');
 
 // fetch customer's orders with items and find the requested order to ensure ownership
 $orders = get_orders_by_customer_ctr($customer_id, true);
@@ -14,7 +15,7 @@ $order = null;
 foreach ($orders as $o) if (intval($o['order_id']) === $id) { $order = $o; break; }
 if (!$order) {
   // not found or not owned
-  header('Location: orders.php'); exit;
+  header('Location: ./orders.php'); exit;
 }
 ?>
 <!doctype html>
@@ -27,7 +28,7 @@ if (!$order) {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-<?php $showBack = true; $showBackTarget = '../admin/orders.php'; require_once __DIR__ . '/../includes/header.php'; ?>
+<?php $showBack = true; $showBackTarget = 'View/orders.php'; require_once __DIR__ . '/../includes/header.php'; ?>
 <div class="container py-4">
   <h3>Order: <?= htmlspecialchars($order['invoice_no']) ?></h3>
   <p class="text-muted">Date: <?= htmlspecialchars($order['order_date']) ?> — Status: <?= htmlspecialchars($order['order_status']) ?></p>
