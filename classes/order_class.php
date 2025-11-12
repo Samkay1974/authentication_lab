@@ -25,7 +25,7 @@ class Order extends db_connection {
 
     public function record_payment($order_id, $amount, $customer_id, $currency = 'GHS', $status = 'paid') {
         $db = $this->db_conn();
-        $stmt = $db->prepare("INSERT INTO payments (amt, customer_id, order_id, currency, payment_date) VALUES (?, ?, ?, ?, NOW())");
+        $stmt = $db->prepare("INSERT INTO payment (amt, customer_id, order_id, currency, payment_date) VALUES (?, ?, ?, ?, NOW())");
         $stmt->bind_param("diis", $amount, $customer_id, $order_id, $currency);
         $ok = $stmt->execute();
         $stmt->close();
