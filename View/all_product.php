@@ -26,7 +26,7 @@ $baseUrl = "http://169.239.251.102:442/~samuel.ninson/";
 </head>
 
 <body class="bg-light">
-  <?php $root = '..'; require_once __DIR__ . '/../includes/header.php'; ?>
+  
   <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <a style="position:fixed; top: 20px; right: 20px;" href="../index.php" class="btn btn-outline-secondary">Back</a>
