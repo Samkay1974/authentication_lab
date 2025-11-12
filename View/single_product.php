@@ -38,10 +38,43 @@ if (!$product) {
         <h6>Keywords</h6>
         <p class="small text-muted"><?= htmlspecialchars($product['product_keywords']) ?></p>
         <div class="mt-4">
-          <a href="#" class="btn btn-primary btn-lg">Add to cart</a>
+          <form id="add-to-cart-form" class="d-flex align-items-center gap-2" action="../actions/add_to_cart_action.php" method="post">
+            <input type="hidden" name="product_id" value="<?= intval($product['product_id']) ?>">
+            <input type="number" name="quantity" value="1" min="1" class="form-control" style="width:100px">
+            <button type="submit" class="btn btn-primary btn-lg">Add to cart</button>
+          </form>
         </div>
       </div>
     </div>
   </div>
 </body>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="../js/cart.js"></script>
+  <script>
+    (function(){
+      const form = document.getElementById('add-to-cart-form');
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        const btn = form.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        fetch(form.action, { method: 'POST', body: new FormData(form) })
+          .then(r => r.json())
+          .then(j => {
+            btn.disabled = false;
+            if (j.status === 'success') {
+              if (window.Swal) Swal.fire({ toast:true, position:'top-end', icon:'success', title: j.message || 'Added to cart', showConfirmButton:false, timer:1500 });
+              else alert(j.message || 'Added to cart');
+              if (typeof window.updateCartCount === 'function') window.updateCartCount();
+            } else {
+              if (window.Swal) Swal.fire({ icon:'error', title:'Error', text: j.message || 'Failed to add to cart' });
+              else alert(j.message || 'Failed to add to cart');
+            }
+          }).catch(()=>{
+            btn.disabled = false;
+            if (window.Swal) Swal.fire({ icon:'error', title:'Network error' }); else alert('Network or server error');
+          });
+      });
+    })();
+  </script>
 </html>

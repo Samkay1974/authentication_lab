@@ -59,6 +59,8 @@ $baseUrl = "http://169.239.251.102:442/~samuel.ninson/";
   </script>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="../js/cart.js"></script>
   <script src="../js/store_products.js"></script>
 </body>
 </html>

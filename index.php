@@ -60,6 +60,12 @@ require_once __DIR__.'/settings/core.php';
 					<li class="nav-item"><a href="admin/product.php" class="nav-link">Manage Products</a></li>
 				<?php endif; ?>
 
+				<li class="nav-item d-flex align-items-center me-2">
+					<a href="View/cart.php" class="nav-link position-relative">
+						<i class="fa fa-shopping-cart"></i>
+						<span id="cartCount" class="badge bg-danger ms-1">0</span>
+					</a>
+				</li>
 				<li class="nav-item">
 					<a href="login/logout.php" class="btn btn-sm btn-outline-danger ms-3">Logout</a>
 				</li>
@@ -90,6 +96,10 @@ require_once __DIR__.'/settings/core.php';
 </div>
 
 
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="js/cart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

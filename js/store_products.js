@@ -35,7 +35,7 @@ $(function () {
             </h5>
             <div class="store-price">₵ ${Number(p.product_price).toFixed(2)}</div>
             <div class="d-flex justify-content-between mt-2">
-              <a href="#" class="btn btn-sm btn-outline-primary">Add to Cart</a>
+              <button data-id="${p.product_id}" class="btn btn-sm btn-outline-primary add-to-cart-btn">Add to Cart</button>
               <a href="../View/single_product.php?id=${p.product_id}" class="btn btn-sm btn-primary">View</a>
             </div>
           </div>
@@ -106,4 +106,37 @@ $(function () {
 
   // ✅ Initial load
   fetchList();
+
+  // Delegate Add to Cart clicks (works for dynamically injected cards)
+  $(document).on('click', '.add-to-cart-btn', function (e) {
+    e.preventDefault();
+    const $btn = $(this);
+    const pid = $btn.data('id');
+    if (!pid) return;
+    $btn.prop('disabled', true);
+
+    // Use minimal payload expected by actions/add_to_cart_action.php
+    $.ajax({
+      url: '../actions/add_to_cart_action.php',
+      method: 'POST',
+      data: { product_id: pid, quantity: 1 },
+      dataType: 'json'
+    }).done(function (resp) {
+      if (resp && resp.status === 'success') {
+        if (window.Swal) {
+          Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: resp.message || 'Added to cart', showConfirmButton: false, timer: 1800 });
+        } else alert(resp.message || 'Added to cart');
+        // update cart count if helper available
+        if (typeof window.updateCartCount === 'function') window.updateCartCount();
+      } else {
+        if (window.Swal) {
+          Swal.fire({ icon: 'error', title: 'Error', text: resp.message || 'Failed to add to cart' });
+        } else alert(resp.message || 'Failed to add to cart');
+      }
+    }).fail(function () {
+      if (window.Swal) Swal.fire({ icon: 'error', title: 'Network error' }); else alert('Network error');
+    }).always(function () {
+      $btn.prop('disabled', false);
+    });
+  });
 });
