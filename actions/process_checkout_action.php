@@ -72,9 +72,10 @@ try {
         ];
     }
 
-    // Return success + URL to view order (relative). order_view expects ?id=<order_id>
-    $order_view = 'View/order_view.php?id=' . urlencode($order_id);
-    $orders_page = 'View/orders.php';
+    // Return success + root-relative URL to view order (order_view expects ?id=<order_id>)
+    $baseRoot = dirname(dirname($_SERVER['SCRIPT_NAME'])); // e.g. '/authentication_lab'
+    $order_view = rtrim($baseRoot, '/') . '/View/order_view.php?id=' . urlencode($order_id);
+    $orders_page = rtrim($baseRoot, '/') . '/View/orders.php';
 
     echo json_encode([
         "status"=>"success",
