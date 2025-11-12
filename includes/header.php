@@ -25,7 +25,7 @@ function _url($path) {
     <ul class="navbar-nav ms-auto align-items-center">
       <li class="nav-item"><a href="<?= _url('View/all_product.php') ?>" class="nav-link">All Products</a></li>
       <?php if (!function_exists('isLoggedIn') || !isLoggedIn()): ?>
-        <li class="nav-item"><a href="<?= _url('../index.php') ?>" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="<?= _url('index.php') ?>" class="nav-link">Home</a></li>
         <li class="nav-item"><a href="<?= _url('login/register.php') ?>" class="nav-link">Join Us</a></li>
         <li class="nav-item"><a href="<?= _url('login/login.php') ?>" class="nav-link">Sign In</a></li>
         
