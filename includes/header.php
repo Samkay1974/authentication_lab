@@ -34,11 +34,6 @@ function _url($path) {
             <li class="nav-item"><a href="<?= _url('admin/category.php') ?>" class="nav-link">Category</a></li>
             <li class="nav-item"><a href="<?= _url('admin/brand.php') ?>" class="nav-link">Brand</a></li>
             <li class="nav-item"><a href="<?= _url('admin/product.php') ?>" class="nav-link">Manage Products</a></li>
-            <?php if (function_exists('isAdmin') && isAdmin()): ?>
-              <li class="nav-item"><a href="<?= _url('admin/category.php') ?>" class="nav-link">Category</a></li>
-              <li class="nav-item"><a href="<?= _url('admin/brand.php') ?>" class="nav-link">Brand</a></li>
-              <li class="nav-item"><a href="<?= _url('admin/product.php') ?>" class="nav-link">Manage Products</a></li>
-            <?php endif; ?>
           <?php endif; ?>
         <li class="nav-item d-flex align-items-center me-2">
           <a href="<?= _url('View/cart.php') ?>" class="nav-link position-relative">
