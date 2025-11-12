@@ -15,4 +15,24 @@ function record_payment_ctr($order_id, $amount, $customer_id, $currency = 'GHS')
     $o = new Order();
     return $o->record_payment($order_id, $amount, $customer_id, $currency);
 }
+
+function get_all_orders_ctr() {
+    $o = new Order();
+    return $o->get_all_orders();
+}
+
+function get_order_details_ctr($order_id) {
+    $o = new Order();
+    return $o->get_order_details($order_id);
+}
+
+function count_orders_ctr() {
+    $o = new Order();
+    return $o->count_orders();
+}
+
+function get_order_by_id_ctr($order_id) {
+    $o = new Order();
+    return $o->get_order_by_id($order_id);
+}
 ?>

@@ -30,18 +30,30 @@ function _url($path) {
         <li class="nav-item"><a href="<?= _url('login/login.php') ?>" class="nav-link">Sign In</a></li>
         
       <?php else: ?>
-        <?php if (function_exists('isAdmin') && isAdmin()): ?>
-          <li class="nav-item"><a href="<?= _url('admin/category.php') ?>" class="nav-link">Category</a></li>
-          <li class="nav-item"><a href="<?= _url('admin/brand.php') ?>" class="nav-link">Brand</a></li>
-          <li class="nav-item"><a href="<?= _url('admin/product.php') ?>" class="nav-link">Manage Products</a></li>
-        <?php endif; ?>
+          <?php if (function_exists('isAdmin') && isAdmin()): ?>
+            <li class="nav-item"><a href="<?= _url('admin/category.php') ?>" class="nav-link">Category</a></li>
+            <li class="nav-item"><a href="<?= _url('admin/brand.php') ?>" class="nav-link">Brand</a></li>
+            <li class="nav-item"><a href="<?= _url('admin/product.php') ?>" class="nav-link">Manage Products</a></li>
+            <?php
+              // show orders badge for admins
+              require_once __DIR__ . '/../controllers/order_controller.php';
+              $ordersCount = 0;
+              try { $ordersCount = count_orders_ctr(); } catch (Exception $ex) { $ordersCount = 0; }
+            ?>
+            <li class="nav-item d-flex align-items-center me-2">
+              <a href="<?= _url('admin/orders.php') ?>" class="nav-link position-relative">
+                <i class="fa fa-receipt"></i>
+                <span id="ordersCount" class="badge bg-info ms-1"><?= intval($ordersCount) ?></span>
+              </a>
+            </li>
+          <?php endif; ?>
         <li class="nav-item d-flex align-items-center me-2">
           <a href="<?= _url('View/cart.php') ?>" class="nav-link position-relative">
             <i class="fa fa-shopping-cart"></i>
             <span id="cartCount" class="badge bg-danger ms-1">0</span>
           </a>
         </li>
-        <li class="nav-item"><a href="<?= _url('/login/logout.php') ?>" class="btn btn-sm btn-outline-danger ms-3">Logout</a></li>
+  <li class="nav-item"><a href="<?= _url('login/logout.php') ?>" class="btn btn-sm btn-outline-danger ms-3">Logout</a></li>
       <?php endif; ?>
     </ul>
   </div>
