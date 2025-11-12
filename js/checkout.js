@@ -18,8 +18,12 @@ $(function () {
       $('#confirmPaymentBtn').prop('disabled', false);
       if (resp.status === 'success') {
         confirmModal.hide();
-        // go to success page
-        window.location.href = 'payment_success.php?order_id=' + encodeURIComponent(resp.order_id || '');
+        // If the server provided an order view URL, go there; otherwise fallback to generic success page
+        if (resp.order_view) {
+          window.location.href = resp.order_view;
+        } else {
+          window.location.href = 'payment_success.php?order_id=' + encodeURIComponent(resp.order_id || '');
+        }
       } else {
         confirmModal.hide();
         // go to failure page with message
