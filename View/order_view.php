@@ -27,7 +27,7 @@ if (!$order) {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-<?php $showBack = true; $showBackTarget = 'orders.php'; require_once __DIR__ . '/../includes/header.php'; ?>
+<?php $showBack = true; $showBackTarget = '../admin/orders.php'; require_once __DIR__ . '/../includes/header.php'; ?>
 <div class="container py-4">
   <h3>Order: <?= htmlspecialchars($order['invoice_no']) ?></h3>
   <p class="text-muted">Date: <?= htmlspecialchars($order['order_date']) ?> — Status: <?= htmlspecialchars($order['order_status']) ?></p>
