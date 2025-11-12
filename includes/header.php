@@ -41,7 +41,7 @@ function _url($path) {
             <span id="cartCount" class="badge bg-danger ms-1">0</span>
           </a>
         </li>
-        <li class="nav-item"><a href="<?= _url('../login/logout.php') ?>" class="btn btn-sm btn-outline-danger ms-3">Logout</a></li>
+        <li class="nav-item"><a href="<?= _url('/login/logout.php') ?>" class="btn btn-sm btn-outline-danger ms-3">Logout</a></li>
       <?php endif; ?>
     </ul>
   </div>
