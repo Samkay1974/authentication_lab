@@ -6,7 +6,7 @@ class Order extends db_connection {
     public function create_order($customer_id, $invoice_no, $status = 'pending') {
         $db = $this->db_conn();
         $stmt = $db->prepare("INSERT INTO orders (customer_id, invoice_no, order_date, order_status) VALUES (?, ?, NOW(), ?)");
-        $stmt->bind_param("iss", $customer_id, $invoice_no, $status);
+        $stmt->bind_param("iis", $customer_id, $invoice_no, $status);
         $ok = $stmt->execute();
         if (!$ok) { $stmt->close(); return false; }
         $order_id = $db->insert_id;

@@ -30,8 +30,8 @@ try {
         $total += $unit * $qty;
     }
 
-    // create order: generate invoice_no
-    $invoice_no = 'INV-' . date('YmdHis') . '-' . bin2hex(random_bytes(3));
+    // create order: generate numeric invoice_no (DB expects integer)
+    $invoice_no = intval(time());
     $order_id = create_order_ctr($customer_id, $invoice_no, 'processing');
     if (!$order_id) { throw new Exception('Could not create order'); }
 
@@ -72,8 +72,8 @@ try {
         ];
     }
 
-    // Return success + URL to view order (relative)
-    $order_view = 'View/order_view.php?invoice=' . urlencode($invoice_no);
+    // Return success + URL to view order (relative). order_view expects ?id=<order_id>
+    $order_view = 'View/order_view.php?id=' . urlencode($order_id);
     $orders_page = 'View/orders.php';
 
     echo json_encode([
