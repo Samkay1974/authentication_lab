@@ -113,30 +113,62 @@ $(function () {
     const $btn = $(this);
     const pid = $btn.data('id');
     if (!pid) return;
-    $btn.prop('disabled', true);
-
-    // Use minimal payload expected by actions/add_to_cart_action.php
-    $.ajax({
-      url: '../actions/add_to_cart_action.php',
-      method: 'POST',
-      data: { product_id: pid, quantity: 1 },
-      dataType: 'json'
-    }).done(function (resp) {
-      if (resp && resp.status === 'success') {
-        if (window.Swal) {
-          Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: resp.message || 'Added to cart', showConfirmButton: false, timer: 1800 });
-        } else alert(resp.message || 'Added to cart');
-        // update cart count if helper available
-        if (typeof window.updateCartCount === 'function') window.updateCartCount();
-      } else {
-        if (window.Swal) {
-          Swal.fire({ icon: 'error', title: 'Error', text: resp.message || 'Failed to add to cart' });
-        } else alert(resp.message || 'Failed to add to cart');
+    // Ask user for quantity using SweetAlert2 when available, else prompt()
+    function doAdd(quantity) {
+      quantity = parseInt(quantity) || 0;
+      if (quantity <= 0) {
+        if (window.Swal) Swal.fire({ icon: 'warning', title: 'Enter a valid quantity' });
+        else alert('Enter a valid quantity');
+        return;
       }
-    }).fail(function () {
-      if (window.Swal) Swal.fire({ icon: 'error', title: 'Network error' }); else alert('Network error');
-    }).always(function () {
-      $btn.prop('disabled', false);
-    });
+      // First check if product already exists in cart so we only increment distinct count when new
+      $.getJSON('../actions/get_cart_action.php', function(cartResp){
+        let isNew = true;
+        if (cartResp && cartResp.status === 'success' && Array.isArray(cartResp.items)) {
+          isNew = !cartResp.items.some(it => parseInt(it.product_id) === parseInt(pid));
+        }
+        $btn.prop('disabled', true);
+        $.ajax({
+          url: '../actions/add_to_cart_action.php',
+          method: 'POST',
+          data: { product_id: pid, quantity: quantity },
+          dataType: 'json'
+        }).done(function (resp) {
+          if (resp && resp.status === 'success') {
+            if (window.Swal) {
+              Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: resp.message || 'Added to cart', showConfirmButton: false, timer: 1800 });
+            } else alert(resp.message || 'Added to cart');
+            // If the product was new to cart, increment distinct-item badge by 1; otherwise resync
+            if (isNew && typeof window.animateCartBadge === 'function') window.animateCartBadge(1);
+            else if (typeof window.updateCartCount === 'function') window.updateCartCount();
+          } else {
+            if (window.Swal) {
+              Swal.fire({ icon: 'error', title: 'Error', text: resp.message || 'Failed to add to cart' });
+            } else alert(resp.message || 'Failed to add to cart');
+          }
+        }).fail(function () {
+          if (window.Swal) Swal.fire({ icon: 'error', title: 'Network error' }); else alert('Network error');
+        }).always(function () {
+          $btn.prop('disabled', false);
+        });
+      });
+    }
+
+    if (window.Swal) {
+      Swal.fire({
+        title: 'Quantity',
+        input: 'number',
+        inputLabel: 'How many would you like to add?',
+        inputValue: 1,
+        inputAttributes: { min: 1, step: 1 },
+        showCancelButton: true,
+        confirmButtonText: 'Add to cart'
+      }).then(result => {
+        if (result.isConfirmed) doAdd(result.value);
+      });
+    } else {
+      const q = prompt('Enter quantity', '1');
+      if (q !== null) doAdd(q);
+    }
   });
 });

@@ -15,6 +15,7 @@ if (!$product) {
   <title><?= htmlspecialchars($product['product_title']) ?> - Product</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/product_store.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     .single-img { width:100%; height:420px; object-fit:cover; border-radius:8px; }
     .meta { color:#6c757d; }
@@ -22,6 +23,7 @@ if (!$product) {
   </style>
 </head>
 <body class="bg-light">
+  <?php $root = '..'; require_once __DIR__ . '/../includes/header.php'; ?>
   <div class="container py-4">
     <a href="all_product.php" class="btn btn-link">← Back to all products</a>
     <div class="row g-4 mt-2">
@@ -57,23 +59,38 @@ if (!$product) {
       form.addEventListener('submit', function(e){
         e.preventDefault();
         const btn = form.querySelector('button[type="submit"]');
-        btn.disabled = true;
-        fetch(form.action, { method: 'POST', body: new FormData(form) })
-          .then(r => r.json())
-          .then(j => {
-            btn.disabled = false;
-            if (j.status === 'success') {
-              if (window.Swal) Swal.fire({ toast:true, position:'top-end', icon:'success', title: j.message || 'Added to cart', showConfirmButton:false, timer:1500 });
-              else alert(j.message || 'Added to cart');
-              if (typeof window.updateCartCount === 'function') window.updateCartCount();
-            } else {
-              if (window.Swal) Swal.fire({ icon:'error', title:'Error', text: j.message || 'Failed to add to cart' });
-              else alert(j.message || 'Failed to add to cart');
-            }
-          }).catch(()=>{
-            btn.disabled = false;
-            if (window.Swal) Swal.fire({ icon:'error', title:'Network error' }); else alert('Network or server error');
-          });
+        const qtyInput = form.querySelector('input[name="quantity"]');
+        let qty = parseInt(qtyInput.value) || 0;
+        if (qty <= 0) {
+          if (window.Swal) Swal.fire({ icon: 'warning', title: 'Enter a valid quantity' });
+          else alert('Enter a valid quantity');
+          return;
+        }
+        // check if this product already exists in cart (so we only increment distinct count when new)
+        $.getJSON('../actions/get_cart_action.php', function(cartResp){
+          let isNew = true;
+          if (cartResp && cartResp.status === 'success' && Array.isArray(cartResp.items)) {
+            isNew = !cartResp.items.some(it => parseInt(it.product_id) === parseInt(<?= intval($product['product_id']) ?>));
+          }
+          btn.disabled = true;
+          fetch(form.action, { method: 'POST', body: new FormData(form) })
+            .then(r => r.json())
+            .then(j => {
+              btn.disabled = false;
+              if (j.status === 'success') {
+                if (window.Swal) Swal.fire({ toast:true, position:'top-end', icon:'success', title: j.message || 'Added to cart', showConfirmButton:false, timer:1500 });
+                else alert(j.message || 'Added to cart');
+                if (isNew && typeof window.animateCartBadge === 'function') window.animateCartBadge(1);
+                else if (typeof window.updateCartCount === 'function') window.updateCartCount();
+              } else {
+                if (window.Swal) Swal.fire({ icon:'error', title:'Error', text: j.message || 'Failed to add to cart' });
+                else alert(j.message || 'Failed to add to cart');
+              }
+            }).catch(()=>{
+              btn.disabled = false;
+              if (window.Swal) Swal.fire({ icon:'error', title:'Network error' }); else alert('Network or server error');
+            });
+        });
       });
     })();
   </script>

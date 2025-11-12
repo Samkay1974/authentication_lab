@@ -28,7 +28,7 @@ foreach ($items as $it) {
 </head>
 <body class="bg-light">
   <div class="container py-5">
-    <a href="../view/cart.php" class="btn btn-outline-secondary mb-3">← Back to Cart</a>
+    <a href="../View/cart.php" class="btn btn-outline-secondary mb-3">← Back to Cart</a>
     <h2>Checkout</h2>
 
     <div class="card mb-4">

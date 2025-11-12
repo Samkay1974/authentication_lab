@@ -63,3 +63,7 @@ body{
 
 /* Form helper */
 .form-foot{font-size:0.95rem;color:#666;margin-top:12px}
+A
+/* Cart badge animation */
+#cartCount, .cart-count { display:inline-block; min-width:22px; text-align:center; }
+.badge-pulse { transform: scale(1.25); transition: transform 220ms ease; }

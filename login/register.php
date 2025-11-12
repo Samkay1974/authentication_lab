@@ -130,6 +130,7 @@
 </head>
 
 <body>
+    <?php $root = '..'; require_once __DIR__ . '/../includes/header.php'; ?>
     <div class="container register-container">
         <div class="row justify-content-center animate__animated animate__fadeInDown">
             <div class="col-md-6">

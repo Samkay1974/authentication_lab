@@ -32,6 +32,7 @@ $(function(){
   function updateCartCount() {
     $.getJSON('../actions/get_cart_action.php', function(resp){
       if (resp && resp.status === 'success') {
+        // show distinct item count (number of rows)
         const count = Array.isArray(resp.items) ? resp.items.length : 0;
         // update any elements with id 'cartCount' or class 'cart-count'
         $('#cartCount').text(count);
@@ -45,6 +46,21 @@ $(function(){
 
   // Make function available globally
   window.updateCartCount = updateCartCount;
+
+  // Animate badge incrementally and then re-sync with server
+  function animateCartBadge(delta) {
+    const $el = $('#cartCount');
+    if (!$el.length) return;
+    const cur = parseInt($el.text()) || 0;
+    const next = Math.max(0, cur + (parseInt(delta) || 0));
+    $el.text(next);
+    $el.addClass('badge-pulse');
+    // remove pulse after short duration
+    setTimeout(() => $el.removeClass('badge-pulse'), 300);
+    // resync with server after 800ms to correct any drift
+    setTimeout(() => { if (typeof window.updateCartCount === 'function') window.updateCartCount(); }, 800);
+  }
+  window.animateCartBadge = animateCartBadge;
 
   // update quantity
   $(document).on('change', '.cart-qty-input', function(){
