@@ -63,9 +63,7 @@ require_once __DIR__.'/settings/core.php';
 				<p>Our goal is to make it quick to search for pizza products, manage your pizza products, and allow your customers to reach 
 					you in the easiest,quickest way possible. With Pizzahub, the success of your business is assured, as we are linked to over 2 million customers all over the world giving you a higher customer reach regardless of your location. Create an account now!!, What are you waiting for?</p>
 			</div>
-			<div class="col-md-6 text-center">
-				<img src="images/default_pizza.png" alt="Pizza" style="max-width:320px;" class="img-fluid rounded">
-			</div>
+			
 		</div>
 	</div>
 </section>
