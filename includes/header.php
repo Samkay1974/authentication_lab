@@ -27,6 +27,7 @@ function _url($path) {
       <?php if (!function_exists('isLoggedIn') || !isLoggedIn()): ?>
         <li class="nav-item"><a href="<?= _url('login/register.php') ?>" class="nav-link">Join Us</a></li>
         <li class="nav-item"><a href="<?= _url('login/login.php') ?>" class="nav-link">Sign In</a></li>
+        
       <?php else: ?>
         <?php if (function_exists('isAdmin') && isAdmin()): ?>
           <li class="nav-item"><a href="<?= _url('admin/category.php') ?>" class="nav-link">Category</a></li>

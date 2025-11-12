@@ -59,11 +59,12 @@ require_once __DIR__.'/settings/core.php';
 		<div class="row align-items-center">
 			<div class="col-md-6">
 				<h2>About PizzaHub</h2>
-				<p class="lead">PizzaHub is a lightweight demo e-commerce platform built to showcase a simple product catalog, cart and checkout flow. We focus on a small, secure PHP backend with an easy-to-use frontend for browsing and ordering.</p>
-				<p>Our goal is to make it quick to list products, manage categories, and let customers add items to their cart with a straightforward checkout experience. This project is ideal for learning PHP, MySQL and how a minimal online store is structured.</p>
+				<p class="lead">PizzaHub is your number one stop shop online platform that allows you to sell and buy delicious pizza with verified sellers and a secure payment system</p>
+				<p>Our goal is to make it quick to search for pizza products, manage your pizza products, and allow your customers to reach 
+					you in the easiest,quickest way possible. With Pizzahub, the success of your business is assured, as we are linked to over 2 million customers all over the world giving you a higher customer reach regardless of your location. Create an account now!!, What are you waiting for?</p>
 			</div>
 			<div class="col-md-6 text-center">
-				<img src="images/hero-pizza.png" alt="Pizza" style="max-width:320px;" class="img-fluid rounded">
+				<img src="images/default_pizza.png" alt="Pizza" style="max-width:320px;" class="img-fluid rounded">
 			</div>
 		</div>
 	</div>
@@ -83,7 +84,7 @@ require_once __DIR__.'/settings/core.php';
 			<div class="col-md-4">
 				<div class="card p-3 h-100">
 					<h5>Smooth Cart</h5>
-					<p class="small">Add items, update quantities and checkout with a simulated payment flow.</p>
+					<p class="small">Buy items from our platform, and see it all in your cart with the ability to update quantities and checkout seamlessly.</p>
 				</div>
 			</div>
 			<div class="col-md-4">
