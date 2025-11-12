@@ -10,10 +10,9 @@ if (!isLoggedIn()) header('Location: ../login/login.php');
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-<?php $root = '..'; require_once __DIR__ . '/../includes/header.php'; ?>
+<?php $root = '..'; $showBack = true; $showBackTarget = 'View/all_product.php'; require_once __DIR__ . '/../includes/header.php'; ?>
 <div class="container py-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <a href="all_product.php" class="btn btn-link">← Back to all products</a>
     <h2>Your Cart</h2>
     <div></div>
   </div>

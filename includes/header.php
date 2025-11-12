@@ -14,6 +14,10 @@ function _url($path) {
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4">
   <a href="<?= _url('index.php') ?>" class="navbar-brand fw-bold" style="color:#d35400;">PizzaHub 🍕</a>
+  <?php if (!empty($showBack)): ?>
+    <?php $backTarget = $showBackTarget ?? 'View/all_product.php'; ?>
+    <a href="<?= _url($backTarget) ?>" class="btn btn-link ms-3 d-none d-lg-inline">← Back</a>
+  <?php endif; ?>
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
     <span class="navbar-toggler-icon"></span>
   </button>
